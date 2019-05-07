@@ -7,16 +7,14 @@ const mapStateToProps = (state, ownProps) => ({
   config: state.config
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    addNode(node) {
-      dispatch({
-        type: "ADD_NODE",
-        node: node
-      });
-    }
-  };
-};
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  addNode(node) {
+    dispatch({
+      type: "ADD_NODE",
+      node
+    });
+  }
+});
 
 const AppContainer = connect(
   mapStateToProps,
