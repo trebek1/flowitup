@@ -1,8 +1,20 @@
 import quip from "quip";
-import App from "./App.jsx";
+import AppContainer from "./Containers/AppContainer.jsx";
+
+import { createStore } from "redux";
+import canvasData from "./reducers";
+
+import { Provider } from "react-redux";
+
+const store = createStore(canvasData);
 
 quip.apps.initialize({
-    initializationCallback: function(rootNode) {
-        ReactDOM.render(<App/>, rootNode);
-    },
+  initializationCallback: function(rootNode) {
+    ReactDOM.render(
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>,
+      rootNode
+    );
+  }
 });

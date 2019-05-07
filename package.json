@@ -1,14 +1,18 @@
 {
-    "name": "flowitup",
-    "version": "0.0.1",
-    "description": "flowitup Quip App",
-    "license": "UNLICENSED",
-    "scripts": {
-        "start": "NODE_ENV=development webpack-dev-server --https",
-        "build": "NODE_ENV=production webpack; create-quip-app pack ./app"
-    },
-    "author": "",
-    "devDependencies": {
-        "quip-apps-webpack-config": ">=0.0.39"
-    }
+  "name": "flowitup",
+  "version": "0.0.1",
+  "description": "flowitup Quip App",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "NODE_ENV=development webpack-dev-server --https",
+    "build": "NODE_ENV=production webpack; create-quip-app pack ./app"
+  },
+  "author": "",
+  "devDependencies": {
+    "quip-apps-webpack-config": ">=0.0.39"
+  },
+  "dependencies": {
+    "react-redux": "^4.0.3",
+    "redux": "^3.0.1"
+  }
 }
