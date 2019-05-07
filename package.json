@@ -10,8 +10,5 @@
     "author": "",
     "devDependencies": {
         "quip-apps-webpack-config": ">=0.0.39"
-    },
-    "dependencies": {
-        "file-loader": "^3.0.1"
     }
 }

@@ -9612,11 +9612,15 @@ var _jsxFileName = "/Users/atrzeciak/Code/flowitup/src/App.jsx";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _App = __webpack_require__(337);
+var _react = __webpack_require__(337);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _App = __webpack_require__(338);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _CanvasBuilder = __webpack_require__(343);
+var _CanvasBuilder = __webpack_require__(339);
 
 var _CanvasBuilder2 = _interopRequireDefault(_CanvasBuilder);
 
@@ -9727,25 +9731,29 @@ var DEMO_CONFIG = {
 var App = function (_React$Component) {
 	_inherits(App, _React$Component);
 
-	function App() {
+	function App(props) {
 		_classCallCheck(this, App);
 
-		return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+		_this.canvas = function (element) {
+			_this.canvas = element;
+		};
+		return _this;
 	}
 
 	_createClass(App, [{
 		key: "componentDidMount",
 		value: function componentDidMount() {
-			var root = document.querySelector("#root");
-			this._canvasBuilder = _CanvasBuilder2.default.default.createInstance(root);
+			this._canvasBuilder = _CanvasBuilder2.default.default.createInstance(this.canvas);
 			this._canvasBuilder.update(DEMO_NODES, DEMO_CONNECTORS, DEMO_CONFIG);
 		}
 	}, {
 		key: "render",
 		value: function render() {
-			return React.createElement("div", { id: "root", className: _App2.default.root, __source: {
+			return _react2.default.createElement("div", { ref: this.canvas, className: _App2.default.root, __source: {
 					fileName: _jsxFileName,
-					lineNumber: 131
+					lineNumber: 137
 				},
 				__self: this
 			});
@@ -9753,7 +9761,7 @@ var App = function (_React$Component) {
 	}]);
 
 	return App;
-}(React.Component);
+}(_react2.default.Component);
 
 exports.default = App;
 
@@ -9761,16 +9769,17 @@ exports.default = App;
 /* 337 */
 /***/ (function(module, exports) {
 
+module.exports = React;
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports) {
+
 // removed by extract-text-webpack-plugin
 module.exports = {"root":"App__root","node-icon1":"App__node-icon1","node-icon2":"App__node-icon2","slds-canvas-builder_node":"App__slds-canvas-builder_node","slds-canvas-builder_node--selected":"App__slds-canvas-builder_node--selected","slds-canvas-builder_node-background-svg":"App__slds-canvas-builder_node-background-svg","slds-canvas-builder_node-dragging":"App__slds-canvas-builder_node-dragging","slds-canvas-builder_connector":"App__slds-canvas-builder_connector","slds-canvas-builder_surface-brush":"App__slds-canvas-builder_surface-brush","slds-canvas-builder_endpoint":"App__slds-canvas-builder_endpoint","slds-canvas-builder_endpoint--hovered":"App__slds-canvas-builder_endpoint--hovered","slds-canvas-builder_endpoint--empty":"App__slds-canvas-builder_endpoint--empty","slds-canvas-builder_connector--dragging":"App__slds-canvas-builder_connector--dragging"};
 
 /***/ }),
-/* 338 */,
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

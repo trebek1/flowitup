@@ -1,3 +1,4 @@
+import React from 'react';
 import Styles from "./App.less";
 import canvasBuilder from "./CanvasBuilder.js";
 
@@ -121,13 +122,18 @@ const DEMO_CONFIG = {
   };
 
 export default class App extends React.Component {
+    constructor(props){
+        super(props);
+        this.canvas = element => {
+          this.canvas = element;
+        };
+    }
 	componentDidMount() {
-		const root = document.querySelector("#root");
-		this._canvasBuilder = canvasBuilder.default.createInstance(root);
+		this._canvasBuilder = canvasBuilder.default.createInstance(this.canvas);
 		this._canvasBuilder.update(DEMO_NODES, DEMO_CONNECTORS, DEMO_CONFIG);
 	}
 
     render() {
-        return <div id="root" className={Styles.root}></div>;
+        return <div ref={this.canvas} className={Styles.root}></div>;
     }
 }
