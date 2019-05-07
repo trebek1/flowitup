@@ -7,11 +7,16 @@ const mapStateToProps = (state, ownProps) => ({
   config: state.config
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  // onClick: () => {
-  //   dispatch(setVisibilityFilter(ownProps.filter))
-  // }
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		addNode(node) {
+			dispatch({
+				type: 'ADD_NODE',
+				node: node
+			});
+		}
+	};
+};
 
 const AppContainer = connect(
   mapStateToProps,
