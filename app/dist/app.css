@@ -1,10 +1,59 @@
-.App__hello {
+.App__root {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  height: 600px;
+  width: 600px;
+  background-color: #FAFAFA;
+  background: linear-gradient(90deg, #fff 11px, transparent 1%) center, linear-gradient(#fff 11px, transparent 1%) center, #AAA;
+  background-size: 12px 12px;
+  background-position: 0 0;
+}
+.App__root .App__node-icon1 {
+  fill: white;
+}
+.App__root .App__node-icon2 {
+  fill: pink;
+}
+.App__root .App__slds-canvas-builder_node.App__slds-canvas-builder_node--selected .App__slds-canvas-builder_node-background-svg {
+  -webkit-filter: drop-shadow(-1px 0px 0px #ffffffff ff) drop-shadow(0px -1px 0px #ffffffff ff) drop-shadow(0px 1px 0px #ffffffff ff) drop-shadow(1px 0px 0px #ffffffff ff) drop-shadow(-1px 0px 0px #ffffffff ff) drop-shadow(0px -1px 0px #ffffffff ff) drop-shadow(0px 1px 0px #ffffffff ff) drop-shadow(1px 0px 0px #ffffffff ff) drop-shadow(-1px 0px 0.8px #1688ed) drop-shadow(0px -1px 0.8px #1688ed) drop-shadow(0px 1px 0.8px #1688ed) drop-shadow(1px 0px 0.8px #1688ed);
+          filter: drop-shadow(-1px 0px 0px #ffffffff ff) drop-shadow(0px -1px 0px #ffffffff ff) drop-shadow(0px 1px 0px #ffffffff ff) drop-shadow(1px 0px 0px #ffffffff ff) drop-shadow(-1px 0px 0px #ffffffff ff) drop-shadow(0px -1px 0px #ffffffff ff) drop-shadow(0px 1px 0px #ffffffff ff) drop-shadow(1px 0px 0px #ffffffff ff) drop-shadow(-1px 0px 0.8px #1688ed) drop-shadow(0px -1px 0.8px #1688ed) drop-shadow(0px 1px 0.8px #1688ed) drop-shadow(1px 0px 0.8px #1688ed);
+}
+.App__root .App__slds-canvas-builder_node-dragging {
+  opacity: 0.9;
+}
+.App__root .App__slds-canvas-builder_connector {
+  stroke: lightgrey;
+}
+.App__root .App__slds-canvas-builder_connector:hover {
+  stroke: darkred;
+}
+.App__root .App__slds-canvas-builder_surface-brush {
+  background-color: #AAAAFF88;
+  border: 1px solid #8888DD;
+}
+.App__root .App__slds-canvas-builder_endpoint.App__slds-canvas-builder_endpoint--hovered {
+  fill: lightgrey;
+  stroke: grey;
+  display: block;
+}
+.App__root .App__slds-canvas-builder_endpoint--empty.App__slds-canvas-builder_endpoint--hovered {
+  fill: pink;
+  stroke: red;
+  display: block;
+}
+.App__root .App__slds-canvas-builder_endpoint,
+.App__root .App__slds-canvas-builder_endpoint--empty {
+  display: none;
+  z-index: 1000;
+}
+.App__root .App__slds-canvas-builder_connector--dragging .App__slds-canvas-builder_endpoint--empty {
+  display: block;
+  fill: lightgreen;
+  stroke: green;
 }
 
 /*# sourceMappingURL=app.css.map*/
