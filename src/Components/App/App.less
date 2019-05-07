@@ -1,0 +1,72 @@
+.root {
+  display: flex;
+  justify-content: center;
+  height: 600px;
+  width: 600px;
+  background-color: #fafafa;
+  background: linear-gradient(90deg, #fff 11px, transparent 1%) center,
+    linear-gradient(#fff 11px, transparent 1%) center, #aaa;
+  background-size: 12px 12px;
+  background-position: 0 0;
+
+  .node-icon1 {
+    fill: white;
+  }
+
+  .node-icon2 {
+    fill: pink;
+  }
+
+  .slds-canvas-builder_node.slds-canvas-builder_node--selected
+    .slds-canvas-builder_node-background-svg {
+    filter: drop-shadow(-1px 0px 0px #ffffffff)
+      drop-shadow(0px -1px 0px #ffffffff) drop-shadow(0px 1px 0px #ffffffff)
+      drop-shadow(1px 0px 0px #ffffffff) drop-shadow(-1px 0px 0px #ffffffff)
+      drop-shadow(0px -1px 0px #ffffffff) drop-shadow(0px 1px 0px #ffffffff)
+      drop-shadow(1px 0px 0px #ffffffff) drop-shadow(-1px 0px 0.8px #1688ed)
+      drop-shadow(0px -1px 0.8px #1688ed) drop-shadow(0px 1px 0.8px #1688ed)
+      drop-shadow(1px 0px 0.8px #1688ed);
+  }
+
+  .slds-canvas-builder_node-dragging {
+    opacity: 0.9;
+  }
+
+  .slds-canvas-builder_connector {
+    stroke: lightgrey;
+
+    &:hover {
+      stroke: darkred;
+    }
+  }
+
+  .slds-canvas-builder_surface-brush {
+    background-color: #aaaaff88;
+    border: 1px solid #8888dd;
+  }
+
+  .slds-canvas-builder_endpoint.slds-canvas-builder_endpoint--hovered {
+    fill: lightgrey;
+    stroke: grey;
+    display: block;
+  }
+
+  .slds-canvas-builder_endpoint--empty.slds-canvas-builder_endpoint--hovered {
+    fill: pink;
+    stroke: red;
+    display: block;
+  }
+
+  .slds-canvas-builder_endpoint,
+  .slds-canvas-builder_endpoint--empty {
+    display: none;
+    z-index: 1000;
+  }
+
+  .slds-canvas-builder_connector--dragging
+    .slds-canvas-builder_endpoint--empty {
+    display: block;
+    fill: lightgreen;
+    stroke: green;
+  }
+}

@@ -4169,7 +4169,7 @@ var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
 var _redux = __webpack_require__(139);
 
-var _reducers = __webpack_require__(390);
+var _reducers = __webpack_require__(389);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -10432,11 +10432,7 @@ var _App2 = _interopRequireDefault(_App);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  return {
-    nodes: state.nodes,
-    connectors: state.connectors,
-    config: state.config
-  };
+  return Object.assign({}, state);
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
@@ -13138,7 +13134,7 @@ module.exports = invariant;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var _jsxFileName = "/Users/atrzeciak/Code/flowitup/src/App.jsx";
+var _jsxFileName = "/Users/atrzeciak/Code/flowitup/src/Components/App/App.jsx";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -13150,7 +13146,7 @@ var _App = __webpack_require__(388);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _CanvasBuilder = __webpack_require__(389);
+var _CanvasBuilder = __webpack_require__(394);
 
 var _CanvasBuilder2 = _interopRequireDefault(_CanvasBuilder);
 
@@ -13261,6 +13257,157 @@ module.exports = {"root":"App__root","node-icon1":"App__node-icon1","node-icon2"
 
 /***/ }),
 /* 389 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _root = __webpack_require__(134);
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var INITIAL_STATE = {
+  nodes: [{
+    id: "1234567",
+    label: "Hello",
+    left: 2000,
+    top: 50,
+    iconClassName: "node-icon1",
+    nodeColor: "#33AAAA"
+  }, {
+    id: "faraway",
+    label: "So Far!",
+    left: 2300,
+    top: 200,
+    iconClassName: "node-icon2",
+    nodeColor: "orange"
+  }, {
+    id: "faraway2",
+    label: "So Far II",
+    left: 2300,
+    top: 433,
+    iconClassName: "node-icon2",
+    nodeColor: "orange"
+  }, {
+    id: "gary",
+    label: "Gary's Node!",
+    className: "node-selected",
+    isSelected: true,
+    width: 100,
+    top: 200,
+    left: 301,
+    height: 100,
+    nodeColor: "green",
+    nodeShape: "SQUARE",
+    iconClassName: "node-icon1",
+    anchors: [{
+      id: "top",
+      location: {
+        leftPercent: 0.15,
+        topPercent: 0.55
+      }
+    }, {
+      id: "top2",
+      location: {
+        leftPercent: 1,
+        topPercent: 0.24
+      }
+    }]
+  }, {
+    id: "josh",
+    label: "Josh Node",
+    left: 544,
+    top: 75,
+    nodeShape: "DIAMOND",
+    iconClassName: "node-icon1",
+    nodeColor: "orange",
+    className: "node-selected",
+    anchors: [{
+      id: "bottom",
+      location: "BOTTOM"
+    }, {
+      id: "left",
+      location: "LEFT"
+    }, {
+      id: "right",
+      location: "TOP"
+    }]
+  }],
+  connectors: [{
+    sourceNodeId: "gary",
+    targetNodeId: "josh",
+    sourceAnchorId: "top2",
+    targetAnchorId: "left",
+    strokeWidth: 5,
+    hoverStrokeWidth: 8
+  }, {
+    sourceNodeId: "gary",
+    targetNodeId: "1234567"
+  }, {
+    sourceNodeId: "faraway",
+    targetNodeId: "faraway2"
+  }],
+  config: {
+    classPrefix: "App__slds-canvas-builder",
+    snapToGrid: [64, 64],
+    surfaceDragMode: "KEY_TOGGLE",
+    surfacePanKeyToggle: "ANY",
+    surfaceBrushKeyToggle: ["CTRL", "SHIFT"],
+    dragMode: "INSTANCE",
+    dragRules: [],
+    connectorStrokeWidth: 2,
+    connectorHoverStrokeWidth: 4,
+    nodeEvents: {
+      onDrop: function onDrop(node, x, y, target) {
+        _root.store.dispatch({ type: "UPDATE_NODE", payload: { x: x, y: y, node: node } });
+      }
+    },
+    connectorEvents: {}
+  }
+};
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case "ADD_NODE":
+      return Object.assign({}, state, {
+        nodes: [].concat(_toConsumableArray(state.nodes), [action.node])
+      });
+    case "UPDATE_NODE":
+      var _action$payload = action.payload,
+          node = _action$payload.node,
+          x = _action$payload.x,
+          y = _action$payload.y;
+
+      var id = node.id;
+      var newNode = state.nodes.filter(function (node) {
+        return node.id === id;
+      })[0];
+      newNode.left = x;
+      newNode.top = y;
+
+      return Object.assign({}, state, {
+        nodes: state.nodes.map(function (node) {
+          return node.id === id ? newNode : node;
+        })
+      });
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18140,153 +18287,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var canvasBuilder = window.canvasBuilder;
 exports.default = canvasBuilder;
-
-/***/ }),
-/* 390 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _root = __webpack_require__(134);
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var INITIAL_STATE = {
-  nodes: [{
-    id: "1234567",
-    label: "Hello",
-    left: 2000,
-    top: 50,
-    iconClassName: "node-icon1",
-    nodeColor: "#33AAAA"
-  }, {
-    id: "faraway",
-    label: "So Far!",
-    left: 2300,
-    top: 200,
-    iconClassName: "node-icon2",
-    nodeColor: "orange"
-  }, {
-    id: "faraway2",
-    label: "So Far II",
-    left: 2300,
-    top: 433,
-    iconClassName: "node-icon2",
-    nodeColor: "orange"
-  }, {
-    id: "gary",
-    label: "Gary's Node!",
-    className: "node-selected",
-    isSelected: true,
-    width: 100,
-    top: 200,
-    left: 301,
-    height: 100,
-    nodeColor: "green",
-    nodeShape: "SQUARE",
-    iconClassName: "node-icon1",
-    anchors: [{
-      id: "top",
-      location: {
-        leftPercent: 0.15,
-        topPercent: 0.55
-      }
-    }, {
-      id: "top2",
-      location: {
-        leftPercent: 1,
-        topPercent: 0.24
-      }
-    }]
-  }, {
-    id: "josh",
-    label: "Josh Node",
-    left: 544,
-    top: 75,
-    nodeShape: "DIAMOND",
-    iconClassName: "node-icon1",
-    nodeColor: "orange",
-    className: "node-selected",
-    anchors: [{
-      id: "bottom",
-      location: "BOTTOM"
-    }, {
-      id: "left",
-      location: "LEFT"
-    }, {
-      id: "right",
-      location: "TOP"
-    }]
-  }],
-  connectors: [{
-    sourceNodeId: "gary",
-    targetNodeId: "josh",
-    sourceAnchorId: "top2",
-    targetAnchorId: "left",
-    strokeWidth: 5,
-    hoverStrokeWidth: 8
-  }, {
-    sourceNodeId: "gary",
-    targetNodeId: "1234567"
-  }, {
-    sourceNodeId: "faraway",
-    targetNodeId: "faraway2"
-  }],
-  config: {
-    classPrefix: "App__slds-canvas-builder",
-    snapToGrid: [64, 64],
-    surfaceDragMode: "KEY_TOGGLE",
-    surfacePanKeyToggle: "ANY",
-    surfaceBrushKeyToggle: ["CTRL", "SHIFT"],
-    dragMode: "INSTANCE",
-    dragRules: [],
-    connectorStrokeWidth: 2,
-    connectorHoverStrokeWidth: 4,
-    nodeEvents: {
-      onDrop: function onDrop(node, x, y, target) {
-        _root.store.dispatch({ type: "UPDATE_NODE", payload: { x: x, y: y, node: node } });
-      }
-    },
-    connectorEvents: {}
-  }
-};
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case "ADD_NODE":
-      return Object.assign({}, state, {
-        nodes: [].concat(_toConsumableArray(state.nodes), [action.node])
-      });
-    case "UPDATE_NODE":
-      var _action$payload = action.payload,
-          node = _action$payload.node,
-          x = _action$payload.x,
-          y = _action$payload.y;
-
-      var id = node.id;
-      var newNode = state.nodes.filter(function (node) {
-        return node.id === id;
-      })[0];
-      newNode.left = x;
-      newNode.top = y;
-
-      return Object.assign({}, state, {
-        nodes: state.nodes.map(function (node) {
-          return node.id === id ? newNode : node;
-        })
-      });
-    default:
-      return state;
-  }
-};
 
 /***/ })
 /******/ ]);
