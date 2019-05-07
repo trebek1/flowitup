@@ -130,7 +130,6 @@ export default (state = INITIAL_STATE, action) => {
       let newNode = state.nodes.filter(node => node.id === id)[0];
       newNode.left = x;
       newNode.top = y;
-
       return {
         ...state,
         nodes: state.nodes.map(node => (node.id === id ? newNode : node))
