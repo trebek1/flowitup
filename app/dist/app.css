@@ -1,4 +1,58 @@
 .App__root {
+  height: 600px;
+  width: 600px;
+}
+.App__root .App__modal {
+  position: absolute;
+  width: 550px;
+  height: 550px;
+  left: 25px;
+  top: 25px;
+  background-color: white;
+  border-radius: 8px;
+  z-index: 100000;
+  -webkit-box-shadow: 0 0 8px 0px grey;
+          box-shadow: 0 0 8px 0px grey;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.App__root .App__modal .App__modalTitle {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+.App__root .App__modal .App__modalBodyContainer {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow: auto;
+}
+.App__root .App__modal .App__modalBodyContainer .App__modalBodySurface {
+  padding: 12px;
+}
+.App__root .App__modal .App__modalFooter {
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  padding: 8px;
+  border-top: 1px solid lightgrey;
+}
+.App__root .App__modal .App__modalFooter button {
+  margin-left: 8px;
+}
+.App__canvas {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -12,45 +66,45 @@
   background-size: 12px 12px;
   background-position: 0 0;
 }
-.App__root .App__node-icon1 {
+.App__canvas .App__node-icon1 {
   fill: white;
 }
-.App__root .App__node-icon2 {
+.App__canvas .App__node-icon2 {
   fill: pink;
 }
-.App__root .App__slds-canvas-builder_node.App__slds-canvas-builder_node--selected .App__slds-canvas-builder_node-background-svg {
+.App__canvas .App__slds-canvas-builder_node.App__slds-canvas-builder_node--selected .App__slds-canvas-builder_node-background-svg {
   -webkit-filter: drop-shadow(-1px 0px 0px #ffffffff ff) drop-shadow(0px -1px 0px #ffffffff ff) drop-shadow(0px 1px 0px #ffffffff ff) drop-shadow(1px 0px 0px #ffffffff ff) drop-shadow(-1px 0px 0px #ffffffff ff) drop-shadow(0px -1px 0px #ffffffff ff) drop-shadow(0px 1px 0px #ffffffff ff) drop-shadow(1px 0px 0px #ffffffff ff) drop-shadow(-1px 0px 0.8px #1688ed) drop-shadow(0px -1px 0.8px #1688ed) drop-shadow(0px 1px 0.8px #1688ed) drop-shadow(1px 0px 0.8px #1688ed);
           filter: drop-shadow(-1px 0px 0px #ffffffff ff) drop-shadow(0px -1px 0px #ffffffff ff) drop-shadow(0px 1px 0px #ffffffff ff) drop-shadow(1px 0px 0px #ffffffff ff) drop-shadow(-1px 0px 0px #ffffffff ff) drop-shadow(0px -1px 0px #ffffffff ff) drop-shadow(0px 1px 0px #ffffffff ff) drop-shadow(1px 0px 0px #ffffffff ff) drop-shadow(-1px 0px 0.8px #1688ed) drop-shadow(0px -1px 0.8px #1688ed) drop-shadow(0px 1px 0.8px #1688ed) drop-shadow(1px 0px 0.8px #1688ed);
 }
-.App__root .App__slds-canvas-builder_node-dragging {
+.App__canvas .App__slds-canvas-builder_node-dragging {
   opacity: 0.9;
 }
-.App__root .App__slds-canvas-builder_connector {
+.App__canvas .App__slds-canvas-builder_connector {
   stroke: lightgrey;
 }
-.App__root .App__slds-canvas-builder_connector:hover {
+.App__canvas .App__slds-canvas-builder_connector:hover {
   stroke: darkred;
 }
-.App__root .App__slds-canvas-builder_surface-brush {
+.App__canvas .App__slds-canvas-builder_surface-brush {
   background-color: #aaaaff88;
   border: 1px solid #8888dd;
 }
-.App__root .App__slds-canvas-builder_endpoint.App__slds-canvas-builder_endpoint--hovered {
+.App__canvas .App__slds-canvas-builder_endpoint.App__slds-canvas-builder_endpoint--hovered {
   fill: lightgrey;
   stroke: grey;
   display: block;
 }
-.App__root .App__slds-canvas-builder_endpoint--empty.App__slds-canvas-builder_endpoint--hovered {
+.App__canvas .App__slds-canvas-builder_endpoint--empty.App__slds-canvas-builder_endpoint--hovered {
   fill: pink;
   stroke: red;
   display: block;
 }
-.App__root .App__slds-canvas-builder_endpoint,
-.App__root .App__slds-canvas-builder_endpoint--empty {
+.App__canvas .App__slds-canvas-builder_endpoint,
+.App__canvas .App__slds-canvas-builder_endpoint--empty {
   display: none;
   z-index: 1000;
 }
-.App__root .App__slds-canvas-builder_connector--dragging .App__slds-canvas-builder_endpoint--empty {
+.App__canvas .App__slds-canvas-builder_connector--dragging .App__slds-canvas-builder_endpoint--empty {
   display: block;
   fill: lightgreen;
   stroke: green;

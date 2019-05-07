@@ -1,4 +1,52 @@
 .root {
+	height: 600px;
+	width: 600px;
+
+	.modal {
+		position: absolute;
+		width: 550px;
+		height: 550px;
+		left: 25px;
+		top: 25px;
+		background-color: white;
+		border-radius: 8px;
+		z-index: 100000;
+		box-shadow: 0 0 8px 0px grey;
+		display: flex;
+		flex-direction: column;
+
+		.modalTitle {
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			font-weight: bold;
+			font-size: 16px;
+		}
+
+		.modalBodyContainer {
+			flex: 1;
+			overflow: auto;
+
+			.modalBodySurface {
+				padding: 12px;
+			}
+		}
+
+		.modalFooter {
+			height: 40px;
+			display: flex;
+			flex-direction: row-reverse;
+			padding: 8px;
+			border-top: 1px solid lightgrey;
+
+			button {
+				margin-left: 8px;
+			}
+		}
+	}
+}
+
+.canvas {
   display: flex;
   justify-content: center;
   height: 600px;
