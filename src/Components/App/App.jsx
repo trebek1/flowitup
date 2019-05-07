@@ -1,5 +1,6 @@
 import React from "react";
 import Styles from "./App.less";
+import Modal from "../Modal/Modal.jsx";
 import canvasBuilder from "../../CanvasBuilder.js";
 
 let NODE_ID = 0;
@@ -71,30 +72,9 @@ export default class App extends React.Component {
     });
   }
 
-  _handleModalClose = () => this.setState({ nodeForModal: null });
+  handleModalClose = () => this.setState({ nodeForModal: null });
 
-  _handleModalSave = () => this.setState({ nodeForModal: null });
-
-  _renderModal = () => {
-    if (!this.state.nodeForModal) {
-      return null;
-    }
-    return (
-      <div className={Styles.modal}>
-        <div className={Styles.modalTitle}>Edit Node</div>
-        <div className={Styles.modalBodyContainer}>
-          <div className={Styles.modalBodySurface}>
-            <div>Node Name</div>
-            <input type="text" />
-          </div>
-        </div>
-        <div className={Styles.modalFooter}>
-          <button onClick={this._handleModalClose}>Close</button>
-          <button onClick={this._handleModalSave}>Save</button>
-        </div>
-      </div>
-    );
-  };
+  handleModalSave = () => this.setState({ nodeForModal: null });
 
   render() {
     if (this._canvasBuilder) {
@@ -108,7 +88,12 @@ export default class App extends React.Component {
 
     return (
       <div className={Styles.root}>
-        {this._renderModal()}
+        {this.state.nodeForModal ? (
+          <Modal
+            handleModalClose={this.handleModalClose}
+            handleModalSave={this.handleModalSave}
+          />
+        ) : null}
         <div ref={this.canvas} className={Styles.canvas} />
       </div>
     );

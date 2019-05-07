@@ -13146,6 +13146,10 @@ var _App = __webpack_require__(388);
 
 var _App2 = _interopRequireDefault(_App);
 
+var _Modal = __webpack_require__(395);
+
+var _Modal2 = _interopRequireDefault(_Modal);
+
 var _CanvasBuilder = __webpack_require__(389);
 
 var _CanvasBuilder2 = _interopRequireDefault(_CanvasBuilder);
@@ -13164,107 +13168,16 @@ var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
   function App(props) {
-    var _this2 = this;
-
     _classCallCheck(this, App);
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-    _this._handleModalClose = function () {
+    _this.handleModalClose = function () {
       return _this.setState({ nodeForModal: null });
     };
 
-    _this._handleModalSave = function () {
+    _this.handleModalSave = function () {
       return _this.setState({ nodeForModal: null });
-    };
-
-    _this._renderModal = function () {
-      if (!_this.state.nodeForModal) {
-        return null;
-      }
-      return _react2.default.createElement(
-        "div",
-        { className: _App2.default.modal, __source: {
-            fileName: _jsxFileName,
-            lineNumber: 83
-          },
-          __self: _this2
-        },
-        _react2.default.createElement(
-          "div",
-          { className: _App2.default.modalTitle, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 84
-            },
-            __self: _this2
-          },
-          "Edit Node"
-        ),
-        _react2.default.createElement(
-          "div",
-          { className: _App2.default.modalBodyContainer, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 85
-            },
-            __self: _this2
-          },
-          _react2.default.createElement(
-            "div",
-            { className: _App2.default.modalBodySurface, __source: {
-                fileName: _jsxFileName,
-                lineNumber: 86
-              },
-              __self: _this2
-            },
-            _react2.default.createElement(
-              "div",
-              {
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 87
-                },
-                __self: _this2
-              },
-              "Node Name"
-            ),
-            _react2.default.createElement("input", { type: "text", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 88
-              },
-              __self: _this2
-            })
-          )
-        ),
-        _react2.default.createElement(
-          "div",
-          { className: _App2.default.modalFooter, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 91
-            },
-            __self: _this2
-          },
-          _react2.default.createElement(
-            "button",
-            { onClick: _this._handleModalClose, __source: {
-                fileName: _jsxFileName,
-                lineNumber: 92
-              },
-              __self: _this2
-            },
-            "Close"
-          ),
-          _react2.default.createElement(
-            "button",
-            { onClick: _this._handleModalSave, __source: {
-                fileName: _jsxFileName,
-                lineNumber: 93
-              },
-              __self: _this2
-            },
-            "Save"
-          )
-        )
-      );
     };
 
     _this.canvas = function (element) {
@@ -13280,10 +13193,10 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: "_addHandlersToConfig",
     value: function _addHandlersToConfig(config) {
-      var _this3 = this;
+      var _this2 = this;
 
       config.nodeEvents.onClick = function (node) {
-        return _this3.setState({ nodeForModal: node });
+        return _this2.setState({ nodeForModal: node });
       };
       return config;
     }
@@ -13352,14 +13265,22 @@ var App = function (_React$Component) {
         "div",
         { className: _App2.default.root, __source: {
             fileName: _jsxFileName,
-            lineNumber: 110
+            lineNumber: 90
           },
           __self: this
         },
-        this._renderModal(),
+        this.state.nodeForModal ? _react2.default.createElement(_Modal2.default, {
+          handleModalClose: this.handleModalClose,
+          handleModalSave: this.handleModalSave,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 92
+          },
+          __self: this
+        }) : null,
         _react2.default.createElement("div", { ref: this.canvas, className: _App2.default.canvas, __source: {
             fileName: _jsxFileName,
-            lineNumber: 112
+            lineNumber: 97
           },
           __self: this
         })
@@ -18406,6 +18327,118 @@ exports.default = function () {
       return state;
   }
 };
+
+/***/ }),
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _jsxFileName = "/Users/atrzeciak/Code/flowitup/src/Components/Modal/Modal.jsx";
+
+var _App = __webpack_require__(388);
+
+var _App2 = _interopRequireDefault(_App);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FlowModal = function FlowModal(_ref) {
+  var handleModalClose = _ref.handleModalClose,
+      handleModalSave = _ref.handleModalSave;
+  return React.createElement(
+    "div",
+    { className: _App2.default.modal, __source: {
+        fileName: _jsxFileName,
+        lineNumber: 4
+      },
+      __self: undefined
+    },
+    React.createElement(
+      "div",
+      { className: _App2.default.modalTitle, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 5
+        },
+        __self: undefined
+      },
+      "Edit Node"
+    ),
+    React.createElement(
+      "div",
+      { className: _App2.default.modalBodyContainer, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 6
+        },
+        __self: undefined
+      },
+      React.createElement(
+        "div",
+        { className: _App2.default.modalBodySurface, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 7
+          },
+          __self: undefined
+        },
+        React.createElement(
+          "div",
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 8
+            },
+            __self: undefined
+          },
+          "Node Name"
+        ),
+        React.createElement("input", { type: "text", __source: {
+            fileName: _jsxFileName,
+            lineNumber: 9
+          },
+          __self: undefined
+        })
+      )
+    ),
+    React.createElement(
+      "div",
+      { className: _App2.default.modalFooter, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 12
+        },
+        __self: undefined
+      },
+      React.createElement(
+        "button",
+        { onClick: handleModalClose, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 13
+          },
+          __self: undefined
+        },
+        "Close"
+      ),
+      React.createElement(
+        "button",
+        { onClick: handleModalSave, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 14
+          },
+          __self: undefined
+        },
+        "Save"
+      )
+    )
+  );
+};
+
+exports.default = FlowModal;
 
 /***/ })
 /******/ ]);
