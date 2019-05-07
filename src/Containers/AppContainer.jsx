@@ -1,22 +1,18 @@
 import { connect } from "react-redux";
-import App from "../App.jsx";
+import App from "../Components/App/App.jsx";
 
 const mapStateToProps = (state, ownProps) => ({
-  nodes: state.nodes,
-  connectors: state.connectors,
-  config: state.config
+  ...state
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    addNode(node) {
-      dispatch({
-        type: "ADD_NODE",
-        node: node
-      });
-    }
-  };
-};
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  addNode(node) {
+    dispatch({
+      type: "ADD_NODE",
+      node
+    });
+  }
+});
 
 const AppContainer = connect(
   mapStateToProps,

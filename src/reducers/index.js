@@ -1,3 +1,5 @@
+import { store } from "../root.jsx";
+
 const INITIAL_STATE = {
   nodes: [
     {
@@ -106,7 +108,11 @@ const INITIAL_STATE = {
     dragRules: [],
     connectorStrokeWidth: 2,
     connectorHoverStrokeWidth: 4,
-    nodeEvents: {},
+    nodeEvents: {
+      onDrop: (node, x, y, target) => {
+        store.dispatch({ type: "UPDATE_NODE", payload: { x, y, node } });
+      }
+    },
     connectorEvents: {}
   }
 };
@@ -115,8 +121,19 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case "ADD_NODE":
       return {
-          ...state,
-          nodes: [...state.nodes, action.node]
+        ...state,
+        nodes: [...state.nodes, action.node]
+      };
+    case "UPDATE_NODE":
+      const { node, x, y } = action.payload;
+      const id = node.id;
+      let newNode = state.nodes.filter(node => node.id === id)[0];
+      newNode.left = x;
+      newNode.top = y;
+
+      return {
+        ...state,
+        nodes: state.nodes.map(node => (node.id === id ? newNode : node))
       };
     default:
       return state;

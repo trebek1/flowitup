@@ -59,12 +59,12 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background-color: #FAFAFA;
-  background: linear-gradient(90deg, #fff 11px, transparent 1%) center, linear-gradient(#fff 11px, transparent 1%) center, #AAA;
-  background-size: 12px 12px;
-  background-position: 0 0;
   height: 600px;
   width: 600px;
+  background-color: #fafafa;
+  background: linear-gradient(90deg, #fff 11px, transparent 1%) center, linear-gradient(#fff 11px, transparent 1%) center, #aaa;
+  background-size: 12px 12px;
+  background-position: 0 0;
 }
 .App__canvas .App__node-icon1 {
   fill: white;
@@ -86,8 +86,8 @@
   stroke: darkred;
 }
 .App__canvas .App__slds-canvas-builder_surface-brush {
-  background-color: #AAAAFF88;
-  border: 1px solid #8888DD;
+  background-color: #aaaaff88;
+  border: 1px solid #8888dd;
 }
 .App__canvas .App__slds-canvas-builder_endpoint.App__slds-canvas-builder_endpoint--hovered {
   fill: lightgrey;

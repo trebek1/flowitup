@@ -6,7 +6,7 @@ import canvasData from "./reducers";
 
 import { Provider } from "react-redux";
 
-const store = createStore(canvasData);
+export const store = createStore(canvasData);
 
 quip.apps.initialize({
   initializationCallback: function(rootNode) {
