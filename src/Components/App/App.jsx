@@ -55,7 +55,8 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    const { addNode, config, connectors, nodes } = this.props;
+    const { addNode, config, connectors, variables } = this.props;
+    let {nodes} = this.props;
     this._canvasBuilder = canvasBuilder.default.createInstance(this.canvas);
     this._canvasBuilder.update(
       nodes,
@@ -74,7 +75,6 @@ export default class App extends React.Component {
           id: "deploy",
           label: "Deploy Flow",
           handler: () => {
-            console.log("hey");
             console.log(nodes);
             /*var map = {};
             console.log('nodes');
@@ -85,6 +85,7 @@ export default class App extends React.Component {
             console.log(map);*/
             console.log("connectors");
             var map = {};
+            nodes = nodes.filter((node) => node.id != '0');
             for (var i = 0; i < connectors.length; i++) {
               console.log(connectors[i].sourceNodeId);
               map[connectors[i].sourceNodeId] = connectors[i].targetNodeId;
@@ -106,7 +107,7 @@ export default class App extends React.Component {
               var assignmentItems = doc.createElement("assignmentItems");
 
               var name = doc.createElement("name");
-              name.innerHTML = node.id;
+              name.innerHTML = node.label;
 
               var label = doc.createElement("label");
               label.innerHTML = node.label;
@@ -118,15 +119,18 @@ export default class App extends React.Component {
               var locy = doc.createElement("locationY");
               locy.innerHTML = node.top.toString();
 
+              var assignVar = variables[node.id];
+
               var assignToReference = doc.createElement("assignToReference");
-              assignToReference.innerHTML = node.variableName;
+              assignToReference.innerHTML = assignVar.name;
 
               var operator = doc.createElement("operator");
               operator.innerHTML = "Assign";
 
               var value = doc.createElement("value");
+
               var stringValue = doc.createElement("stringValue");
-              stringValue.innerHTML = "text";
+              stringValue.innerHTML = assignVar.value;
 
               if (map[node.id] != undefined || map[node.id] != null) {
                 var connector = doc.createElement("connector");
@@ -148,30 +152,6 @@ export default class App extends React.Component {
               assignments.appendChild(locy);
               assignments.appendChild(assignmentItems);
               flow.appendChild(assignments);
-
-              // Create variables
-              /*var vars = doc.createElement("variables");
-              var n = doc.createElement("name");
-              n.innerHTML = node.variableName;
-
-              var dt = doc.createElement("dataType")
-              dt.innerHTML = "String";
-
-              var collect = doc.createElement("isCollection")
-              collect.innerHTML = "false";
-
-              var isInput = doc.createElement("isInput")
-              isInput.innerHTML = "false";
-
-              var isOutput= doc.createElement("isOutput")
-              isOutput.innerHTML = "false";
-
-              vars.appendChild(n);
-              vars.appendChild(dt);
-              vars.appendChild(collect);
-              vars.appendChild(isInput);
-              vars.appendChild(isOutput);
-              flow.appendChild(vars);*/
             }
 
             var interviewLabel = doc.createElement("interviewLabel");
@@ -226,11 +206,11 @@ export default class App extends React.Component {
             flow.appendChild(start);
             flow.appendChild(status);
 
-            for (var i = 0; i < nodes.length; i++) {
-              var node = nodes[i];
+            for (var i = 0; i < Object.keys(variables); i++) {
+              var variable = Object.keys(variables)[i];
               var vars = doc.createElement("variables");
               var n = doc.createElement("name");
-              n.innerHTML = node.variableName;
+              n.innerHTML = variable.name;
 
               var dt = doc.createElement("dataType");
               dt.innerHTML = "String";
@@ -312,7 +292,7 @@ export default class App extends React.Component {
           }
         }
       ],
-      toolbarCommandIds: ["addAssignment"]
+      toolbarCommandIds: ["addAssignment","deploy"]
     });
   }
 
