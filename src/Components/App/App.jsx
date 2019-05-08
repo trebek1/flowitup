@@ -5,21 +5,21 @@ import canvasBuilder from "../../CanvasBuilder.js";
 
 let NODE_ID = 0;
 
-const createNode = (nodeId) => {
+const createNode = nodeId => {
   return {
-	id: nodeId,
-	label: "",
-	left: 0,
-	top: 0,
-	width: 64,
-	height: 64,
-	nodeShape: "SQUARE",
-	nodeColor: "orange",
-	anchors: [
-	  { id: "top", location: "Top" },
-	  { id: "left", location: "Left" },
-	  { id: "right", location: "Right" },
-	  { id: "bottom", location: "Bottom" }
+    id: nodeId,
+    label: "",
+    left: 0,
+    top: 0,
+    width: 64,
+    height: 64,
+    nodeShape: "SQUARE",
+    nodeColor: "orange",
+    anchors: [
+      { id: "top", location: "Top" },
+      { id: "left", location: "Left" },
+      { id: "right", location: "Right" },
+      { id: "bottom", location: "Bottom" }
     ]
   };
 };
@@ -37,10 +37,20 @@ export default class App extends React.Component {
   }
 
   _addHandlersToConfig(config) {
-	config.nodeEvents.onClick = node => this.setState({ nodeForModal: node });
-	config.connectorEvents.onConnectorAdd = (sourceNodeId, targetNodeId, sourceAnchorId, targetAnchorId) => {
-		this.props.addConnector({ sourceNodeId, targetNodeId, sourceAnchorId, targetAnchorId });
-	};
+    config.nodeEvents.onClick = nodeForModal => this.setState({ nodeForModal });
+    config.connectorEvents.onConnectorAdd = (
+      sourceNodeId,
+      targetNodeId,
+      sourceAnchorId,
+      targetAnchorId
+    ) => {
+      this.props.addConnector({
+        sourceNodeId,
+        targetNodeId,
+        sourceAnchorId,
+        targetAnchorId
+      });
+    };
     return config;
   }
 
@@ -60,7 +70,7 @@ export default class App extends React.Component {
           id: "addAssignment",
           label: "Add Assignment",
           handler: () => {
-			const newNode = createNode("Node-ID-" + ++NODE_ID);
+            const newNode = createNode("Node-ID-" + ++NODE_ID);
             addNode(newNode);
           }
         }
@@ -70,9 +80,14 @@ export default class App extends React.Component {
 
   handleModalClose = () => this.setState({ nodeForModal: null });
 
-  handleModalSave = () => this.setState({ nodeForModal: null });
+  handleModalSave = data => {
+    this.props.updateNode(data);
+    this.setState({ nodeForModal: null });
+  };
 
   render() {
+    const { nodeForModal } = this.state;
+    const { canvas, root } = Styles;
     if (this._canvasBuilder) {
       const { nodes, connectors, config } = this.props;
       this._canvasBuilder.update(
@@ -83,14 +98,20 @@ export default class App extends React.Component {
     }
 
     return (
-      <div className={Styles.root}>
-        {this.state.nodeForModal ? (
+      <div className={root}>
+        {nodeForModal ? (
           <Modal
+            data={{
+              id: nodeForModal.id,
+              label: nodeForModal.label,
+              variableName: nodeForModal.variableName,
+              variableValue: nodeForModal.variableValue
+            }}
             handleModalClose={this.handleModalClose}
             handleModalSave={this.handleModalSave}
           />
         ) : null}
-        <div ref={this.canvas} className={Styles.canvas} />
+        <div ref={this.canvas} className={canvas} />
       </div>
     );
   }

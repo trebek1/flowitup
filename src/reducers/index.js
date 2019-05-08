@@ -3,12 +3,26 @@ import { store } from "../root.jsx";
 const INITIAL_STATE = {
   nodes: [
     {
+      id: "0",
+      label: "Start",
+      left: 50,
+      top: 10,
+      iconClassName: "node-icon1",
+      nodeColor: "#33AAAA",
+      variableName: "",
+      variableValue: "",
+      startElement: true
+    },
+    {
       id: "1234567",
       label: "Hello",
       left: 2000,
       top: 50,
       iconClassName: "node-icon1",
-      nodeColor: "#33AAAA"
+      nodeColor: "#33AAAA",
+      variableName: "",
+      variableValue: "",
+      startElement: false
     },
     {
       id: "faraway",
@@ -16,7 +30,10 @@ const INITIAL_STATE = {
       left: 2300,
       top: 200,
       iconClassName: "node-icon2",
-      nodeColor: "orange"
+      nodeColor: "orange",
+      variableName: "",
+      variableValue: "",
+      startElement: false
     },
     {
       id: "faraway2",
@@ -24,7 +41,10 @@ const INITIAL_STATE = {
       left: 2300,
       top: 433,
       iconClassName: "node-icon2",
-      nodeColor: "orange"
+      nodeColor: "orange",
+      variableName: "",
+      variableValue: "",
+      startElement: false
     },
     {
       id: "gary",
@@ -37,6 +57,7 @@ const INITIAL_STATE = {
       height: 100,
       nodeColor: "green",
       nodeShape: "SQUARE",
+      startElement: false,
       iconClassName: "node-icon1",
       anchors: [
         {
@@ -53,7 +74,9 @@ const INITIAL_STATE = {
             topPercent: 0.24
           }
         }
-      ]
+      ],
+      variableName: "",
+      variableValue: ""
     },
     {
       id: "josh",
@@ -64,6 +87,8 @@ const INITIAL_STATE = {
       iconClassName: "node-icon1",
       nodeColor: "orange",
       className: "node-selected",
+      startElement: false,
+      endElement: false,
       anchors: [
         {
           id: "bottom",
@@ -77,7 +102,9 @@ const INITIAL_STATE = {
           id: "right",
           location: "TOP"
         }
-      ]
+      ],
+      variableName: "",
+      variableValue: ""
     }
   ],
   connectors: [
@@ -133,12 +160,23 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         nodes: state.nodes.map(node => (node.id === id ? newNode : node))
-	  };
-	case "ADD_CONNECTOR":
+      };
+    case "ADD_CONNECTOR":
       return {
         ...state,
         connectors: [...state.connectors, action.connector]
       };
+    case "UPDATE_NODE_VALUES":
+      const changeId = action.node.id;
+      const updateNode = state.nodes.filter(node => node.id === changeId)[0];
+      updateNode.label = action.node.label;
+      return {
+        ...state,
+        nodes: state.nodes.map(node =>
+          node.id === changeId ? updateNode : node
+        )
+      };
+      return state;
     default:
       return state;
   }

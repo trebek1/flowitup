@@ -14,10 +14,16 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 
   addConnector(connector) {
-	dispatch({
-	  type: "ADD_CONNECTOR",
+    dispatch({
+      type: "ADD_CONNECTOR",
       connector
-	});
+    });
+  },
+  updateNode(node) {
+    dispatch({
+      type: "UPDATE_NODE_VALUES",
+      node
+    });
   }
 });
 
