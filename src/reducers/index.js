@@ -25,40 +25,6 @@ const INITIAL_STATE = {
     surfacePanKeyToggle: "ANY"
   },
   connectors: [
-    {
-      sourceNodeId: "gary",
-      targetNodeId: "josh",
-      sourceAnchorId: "top2",
-      targetAnchorId: "left",
-      strokeWidth: 5,
-      hoverStrokeWidth: 8
-    },
-    {
-      sourceNodeId: "gary",
-      targetNodeId: "1234567"
-    },
-    {
-      sourceNodeId: "faraway",
-      targetNodeId: "faraway2"
-    }
-  ],
-  connectors: [
-    {
-      sourceNodeId: "gary",
-      targetNodeId: "josh",
-      sourceAnchorId: "top2",
-      targetAnchorId: "left",
-      strokeWidth: 5,
-      hoverStrokeWidth: 8
-    },
-    {
-      sourceNodeId: "gary",
-      targetNodeId: "1234567"
-    },
-    {
-      sourceNodeId: "faraway",
-      targetNodeId: "faraway2"
-    }
   ],
   nodes: [
     {
@@ -66,86 +32,15 @@ const INITIAL_STATE = {
       id: "0",
       label: "Start",
       left: 50,
-      nodeColor: "#33AAAA",
-      top: 10
-    },
-    {
-      iconClassName: "node-icon1",
-      id: "1234567",
-      label: "Hello",
-      left: 2000,
-      nodeColor: "#33AAAA",
-      top: 50
-    },
-    {
-      iconClassName: "node-icon2",
-      id: "faraway",
-      label: "So Far!",
-      left: 2300,
-      nodeColor: "orange",
-      top: 200
-    },
-    {
-      iconClassName: "node-icon2",
-      id: "faraway2",
-      label: "So Far II",
-      left: 2300,
-      nodeColor: "orange",
-      top: 433
-    },
-    {
-      className: "node-selected",
-      height: 100,
-      iconClassName: "node-icon1",
-      id: "gary",
-      isSelected: true,
-      label: "Gary's Node!",
-      left: 301,
-      nodeColor: "green",
-      nodeShape: "SQUARE",
-      top: 200,
-      width: 100,
-      anchors: [
-        {
-          id: "top",
-          location: {
-            leftPercent: 0.15,
-            topPercent: 0.55
-          }
-        },
-        {
-          id: "top2",
-          location: {
-            leftPercent: 1,
-            topPercent: 0.24
-          }
-        }
-      ]
-    },
-    {
-      className: "node-selected",
-      iconClassName: "node-icon1",
-      id: "josh",
-      label: "Josh Node",
-      left: 544,
-      nodeColor: "orange",
-      nodeShape: "DIAMOND",
-      startElement: false,
-      top: 75,
-      anchors: [
-        {
-          id: "bottom",
-          location: "BOTTOM"
-        },
-        {
-          id: "left",
-          location: "LEFT"
-        },
-        {
-          id: "right",
-          location: "TOP"
-        }
-      ]
+	  nodeColor: "#33AAAA",
+	  nodeShape: 'CIRCLE',
+	  top: 10,
+	  anchors: [
+		  { id: "left", location: "LEFT" },
+		  { id: "right", location: "RIGHT" },
+		  { id: "top", location: "TOP" },
+		  { id: "bottom", location: "BOTTOM" }
+	  ]
     }
   ],
   variables: {
