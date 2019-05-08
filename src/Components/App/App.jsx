@@ -61,7 +61,7 @@ export default class App extends React.Component {
     quip.apps.updateToolbar({
       menuCommands: [
         {
-          handler: () => addNode(createNode(`Node-ID-"${++NODE_ID}`)),
+          handler: () => addNode(createNode(`NodeID${++NODE_ID}`)),
           id: "addAssignment",
           label: "Add Assignment"
         },
@@ -89,7 +89,7 @@ export default class App extends React.Component {
               var assignmentItems = doc.createElement("assignmentItems");
 
               var name = doc.createElement("name");
-              name.innerHTML = node.label;
+              name.innerHTML = node.id;
 
               var label = doc.createElement("label");
               label.innerHTML = node.label;
@@ -178,7 +178,16 @@ export default class App extends React.Component {
             ptype.innerHTML = "AutoLaunchedFlow";
 
             var start = doc.createElement("startElementReference");
-            start.innerHTML = "node1";
+
+            for(var i=0; i < connectors.length; i++) {
+              var connector = connectors[i];
+              if(connector.sourceNodeId == "0") {
+              start.innerHTML = connector.targetNodeId;
+            }
+
+            }
+            console.log("connectors");
+            console.log(connectors);
 
             var status = doc.createElement("status");
             status.innerHTML = "Draft";
@@ -187,8 +196,16 @@ export default class App extends React.Component {
             flow.appendChild(start);
             flow.appendChild(status);
 
-            for (var i = 0; i < Object.keys(variables); i++) {
-              var variable = Object.keys(variables)[i];
+            console.log("variables are: ");
+            console.log(variables);
+            for (var i = 0; i < Object.keys(variables).length; i++) {
+              if(Object.keys(variables)[i] == '0') {
+                console.log("found start");
+                continue;
+              }
+              var variable = variables[Object.keys(variables)[i]];
+              console.log("waht value");
+              console.log(variable);
               var vars = doc.createElement("variables");
               var n = doc.createElement("name");
               n.innerHTML = variable.name;
