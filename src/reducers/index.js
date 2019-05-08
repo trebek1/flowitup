@@ -1,12 +1,65 @@
 import { store } from "../root.jsx";
+import {
+  ADD_CONNECTOR,
+  ADD_NODE,
+  UPDATE_NODE,
+  UPDATE_NODE_VALUES
+} from "../Actions";
 
 const INITIAL_STATE = {
-  variables: {
-    "0": {
-      name: "test",
-      value: "test value"
-    }
+  config: {
+    classPrefix: "App__slds-canvas-builder",
+    connectorEvents: {},
+    connectorHoverStrokeWidth: 4,
+    connectorStrokeWidth: 2,
+    dragMode: "INSTANCE",
+    dragRules: [],
+    nodeEvents: {
+      onDrop: (node, x, y, target) => {
+        store.dispatch({ type: UPDATE_NODE, payload: { x, y, node } });
+      }
+    },
+    snapToGrid: [64, 64],
+    surfaceBrushKeyToggle: ["CTRL", "SHIFT"],
+    surfaceDragMode: "KEY_TOGGLE",
+    surfacePanKeyToggle: "ANY"
   },
+  connectors: [
+    {
+      sourceNodeId: "gary",
+      targetNodeId: "josh",
+      sourceAnchorId: "top2",
+      targetAnchorId: "left",
+      strokeWidth: 5,
+      hoverStrokeWidth: 8
+    },
+    {
+      sourceNodeId: "gary",
+      targetNodeId: "1234567"
+    },
+    {
+      sourceNodeId: "faraway",
+      targetNodeId: "faraway2"
+    }
+  ],
+  connectors: [
+    {
+      sourceNodeId: "gary",
+      targetNodeId: "josh",
+      sourceAnchorId: "top2",
+      targetAnchorId: "left",
+      strokeWidth: 5,
+      hoverStrokeWidth: 8
+    },
+    {
+      sourceNodeId: "gary",
+      targetNodeId: "1234567"
+    },
+    {
+      sourceNodeId: "faraway",
+      targetNodeId: "faraway2"
+    }
+  ],
   nodes: [
     {
       iconClassName: "node-icon1",
@@ -95,51 +148,27 @@ const INITIAL_STATE = {
       ]
     }
   ],
-  connectors: [
-    {
-      sourceNodeId: "gary",
-      targetNodeId: "josh",
-      sourceAnchorId: "top2",
-      targetAnchorId: "left",
-      strokeWidth: 5,
-      hoverStrokeWidth: 8
-    },
-    {
-      sourceNodeId: "gary",
-      targetNodeId: "1234567"
-    },
-    {
-      sourceNodeId: "faraway",
-      targetNodeId: "faraway2"
+  variables: {
+    "0": {
+      name: "test",
+      value: "test value"
     }
-  ],
-  config: {
-    classPrefix: "App__slds-canvas-builder",
-    connectorEvents: {},
-    connectorHoverStrokeWidth: 4,
-    connectorStrokeWidth: 2,
-    dragMode: "INSTANCE",
-    dragRules: [],
-    nodeEvents: {
-      onDrop: (node, x, y, target) => {
-        store.dispatch({ type: "UPDATE_NODE", payload: { x, y, node } });
-      }
-    },
-    snapToGrid: [64, 64],
-    surfaceBrushKeyToggle: ["CTRL", "SHIFT"],
-    surfaceDragMode: "KEY_TOGGLE",
-    surfacePanKeyToggle: "ANY"
   }
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "ADD_NODE":
+    case ADD_CONNECTOR:
+      return {
+        ...state,
+        connectors: [...state.connectors, action.connector]
+      };
+    case ADD_NODE:
       return {
         ...state,
         nodes: [...state.nodes, action.node]
       };
-    case "UPDATE_NODE":
+    case UPDATE_NODE:
       const { node, x, y } = action.payload;
       const id = node.id;
       let newNode = state.nodes.filter(node => node.id === id)[0];
@@ -149,12 +178,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         nodes: state.nodes.map(node => (node.id === id ? newNode : node))
       };
-    case "ADD_CONNECTOR":
-      return {
-        ...state,
-        connectors: [...state.connectors, action.connector]
-      };
-    case "UPDATE_NODE_VALUES":
+    case UPDATE_NODE_VALUES:
       const changeId = action.node.id;
       const updateNode = state.nodes.filter(node => node.id === changeId)[0];
       updateNode.label = action.node.label;

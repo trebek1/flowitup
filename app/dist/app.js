@@ -10436,6 +10436,8 @@ var _App = __webpack_require__(388);
 
 var _App2 = _interopRequireDefault(_App);
 
+var _Actions = __webpack_require__(396);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
@@ -10444,21 +10446,21 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
-    addNode: function addNode(node) {
-      dispatch({
-        type: "ADD_NODE",
-        node: node
-      });
-    },
     addConnector: function addConnector(connector) {
       dispatch({
-        type: "ADD_CONNECTOR",
+        type: _Actions.ADD_CONNECTOR,
         connector: connector
+      });
+    },
+    addNode: function addNode(node) {
+      dispatch({
+        type: _Actions.ADD_NODE,
+        node: node
       });
     },
     updateNode: function updateNode(node) {
       dispatch({
-        type: "UPDATE_NODE_VALUES",
+        type: _Actions.UPDATE_NODE_VALUES,
         node: node
       });
     }
@@ -13185,15 +13187,15 @@ var NODE_ID = 0;
 
 var createNode = function createNode(nodeId) {
   return {
+    anchors: [{ id: "top", location: "Top" }, { id: "left", location: "Left" }, { id: "right", location: "Right" }, { id: "bottom", location: "Bottom" }],
+    height: 64,
     id: nodeId,
     label: "",
     left: 0,
-    top: 0,
-    width: 64,
-    height: 64,
     nodeShape: "SQUARE",
     nodeColor: "orange",
-    anchors: [{ id: "top", location: "Top" }, { id: "left", location: "Left" }, { id: "right", location: "Right" }, { id: "bottom", location: "Bottom" }]
+    top: 0,
+    width: 64
   };
 };
 
@@ -13246,10 +13248,10 @@ var App = function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _props = this.props,
-          nodes = _props.nodes,
-          connectors = _props.connectors,
+          addNode = _props.addNode,
           config = _props.config,
-          addNode = _props.addNode;
+          connectors = _props.connectors,
+          nodes = _props.nodes;
 
       this._canvasBuilder = _CanvasBuilder2.default.default.createInstance(this.canvas);
       this._canvasBuilder.update(nodes, connectors, this._addHandlersToConfig(config));
@@ -13257,8 +13259,7 @@ var App = function (_React$Component) {
       quip.apps.updateToolbar({
         menuCommands: [{
           handler: function handler() {
-            var newNode = createNode("Node-ID-\"" + ++NODE_ID);
-            addNode(newNode);
+            return addNode(createNode("Node-ID-\"" + ++NODE_ID));
           },
           id: "addAssignment",
           label: "Add Assignment"
@@ -13273,9 +13274,9 @@ var App = function (_React$Component) {
       var canvas = _App2.default.canvas,
           root = _App2.default.root;
       var _props2 = this.props,
-          nodes = _props2.nodes,
-          connectors = _props2.connectors,
           config = _props2.config,
+          connectors = _props2.connectors,
+          nodes = _props2.nodes,
           variables = _props2.variables;
 
       if (this._canvasBuilder) {
@@ -13286,7 +13287,7 @@ var App = function (_React$Component) {
         "div",
         { className: root, __source: {
             fileName: _jsxFileName,
-            lineNumber: 99
+            lineNumber: 96
           },
           __self: this
         },
@@ -13301,13 +13302,13 @@ var App = function (_React$Component) {
           handleModalSave: this.handleModalSave,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 101
+            lineNumber: 98
           },
           __self: this
         }) : null,
         _react2.default.createElement("div", { ref: this.canvas, className: canvas, __source: {
             fileName: _jsxFileName,
-            lineNumber: 114
+            lineNumber: 111
           },
           __self: this
         })
@@ -13394,10 +13395,10 @@ var FlowModal = function (_React$Component) {
           variableName = _state.variableName,
           variableValue = _state.variableValue;
       var modal = _App2.default.modal,
-          modalTitle = _App2.default.modalTitle,
           modalBodyContainer = _App2.default.modalBodyContainer,
           modalBodySurface = _App2.default.modalBodySurface,
-          modalFooter = _App2.default.modalFooter;
+          modalFooter = _App2.default.modalFooter,
+          modalTitle = _App2.default.modalTitle;
 
       return _react2.default.createElement(
         "div",
@@ -13457,7 +13458,7 @@ var FlowModal = function (_React$Component) {
                 },
                 __self: this
               },
-              _react2.default.createElement("input", { type: "text", value: this.state.label, __source: {
+              _react2.default.createElement("input", { type: "text", value: label, __source: {
                   fileName: _jsxFileName,
                   lineNumber: 42
                 },
@@ -13491,12 +13492,12 @@ var FlowModal = function (_React$Component) {
                 },
                 "Variable Name:",
                 _react2.default.createElement("input", {
-                  type: "text",
-                  value: this.state.variableName,
                   onChange: function onChange(_ref3) {
                     var value = _ref3.target.value;
                     return _this2.updateValue("variableName", value);
                   },
+                  type: "text",
+                  value: variableName,
                   __source: {
                     fileName: _jsxFileName,
                     lineNumber: 48
@@ -13515,12 +13516,12 @@ var FlowModal = function (_React$Component) {
                 },
                 "Variable Value:",
                 _react2.default.createElement("input", {
-                  type: "text",
-                  value: this.state.variableValue,
                   onChange: function onChange(_ref4) {
                     var value = _ref4.target.value;
                     return _this2.updateValue("variableValue", value);
                   },
+                  type: "text",
+                  value: variableValue,
                   __source: {
                     fileName: _jsxFileName,
                     lineNumber: 58
@@ -18471,93 +18472,34 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _INITIAL_STATE;
+
 var _root = __webpack_require__(134);
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _Actions = __webpack_require__(396);
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var INITIAL_STATE = {
-  variables: {
-    "0": {
-      name: "test",
-      value: "test value"
-    }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var INITIAL_STATE = (_INITIAL_STATE = {
+  config: {
+    classPrefix: "App__slds-canvas-builder",
+    connectorEvents: {},
+    connectorHoverStrokeWidth: 4,
+    connectorStrokeWidth: 2,
+    dragMode: "INSTANCE",
+    dragRules: [],
+    nodeEvents: {
+      onDrop: function onDrop(node, x, y, target) {
+        _root.store.dispatch({ type: _Actions.UPDATE_NODE, payload: { x: x, y: y, node: node } });
+      }
+    },
+    snapToGrid: [64, 64],
+    surfaceBrushKeyToggle: ["CTRL", "SHIFT"],
+    surfaceDragMode: "KEY_TOGGLE",
+    surfacePanKeyToggle: "ANY"
   },
-  nodes: [{
-    iconClassName: "node-icon1",
-    id: "0",
-    label: "Start",
-    left: 50,
-    nodeColor: "#33AAAA",
-    top: 10
-  }, {
-    iconClassName: "node-icon1",
-    id: "1234567",
-    label: "Hello",
-    left: 2000,
-    nodeColor: "#33AAAA",
-    top: 50
-  }, {
-    iconClassName: "node-icon2",
-    id: "faraway",
-    label: "So Far!",
-    left: 2300,
-    nodeColor: "orange",
-    top: 200
-  }, {
-    iconClassName: "node-icon2",
-    id: "faraway2",
-    label: "So Far II",
-    left: 2300,
-    nodeColor: "orange",
-    top: 433
-  }, {
-    className: "node-selected",
-    height: 100,
-    iconClassName: "node-icon1",
-    id: "gary",
-    isSelected: true,
-    label: "Gary's Node!",
-    left: 301,
-    nodeColor: "green",
-    nodeShape: "SQUARE",
-    top: 200,
-    width: 100,
-    anchors: [{
-      id: "top",
-      location: {
-        leftPercent: 0.15,
-        topPercent: 0.55
-      }
-    }, {
-      id: "top2",
-      location: {
-        leftPercent: 1,
-        topPercent: 0.24
-      }
-    }]
-  }, {
-    className: "node-selected",
-    iconClassName: "node-icon1",
-    id: "josh",
-    label: "Josh Node",
-    left: 544,
-    nodeColor: "orange",
-    nodeShape: "DIAMOND",
-    startElement: false,
-    top: 75,
-    anchors: [{
-      id: "bottom",
-      location: "BOTTOM"
-    }, {
-      id: "left",
-      location: "LEFT"
-    }, {
-      id: "right",
-      location: "TOP"
-    }]
-  }],
   connectors: [{
     sourceNodeId: "gary",
     targetNodeId: "josh",
@@ -18571,36 +18513,114 @@ var INITIAL_STATE = {
   }, {
     sourceNodeId: "faraway",
     targetNodeId: "faraway2"
-  }],
-  config: {
-    classPrefix: "App__slds-canvas-builder",
-    connectorEvents: {},
-    connectorHoverStrokeWidth: 4,
-    connectorStrokeWidth: 2,
-    dragMode: "INSTANCE",
-    dragRules: [],
-    nodeEvents: {
-      onDrop: function onDrop(node, x, y, target) {
-        _root.store.dispatch({ type: "UPDATE_NODE", payload: { x: x, y: y, node: node } });
-      }
-    },
-    snapToGrid: [64, 64],
-    surfaceBrushKeyToggle: ["CTRL", "SHIFT"],
-    surfaceDragMode: "KEY_TOGGLE",
-    surfacePanKeyToggle: "ANY"
+  }]
+}, _defineProperty(_INITIAL_STATE, "connectors", [{
+  sourceNodeId: "gary",
+  targetNodeId: "josh",
+  sourceAnchorId: "top2",
+  targetAnchorId: "left",
+  strokeWidth: 5,
+  hoverStrokeWidth: 8
+}, {
+  sourceNodeId: "gary",
+  targetNodeId: "1234567"
+}, {
+  sourceNodeId: "faraway",
+  targetNodeId: "faraway2"
+}]), _defineProperty(_INITIAL_STATE, "nodes", [{
+  iconClassName: "node-icon1",
+  id: "0",
+  label: "Start",
+  left: 50,
+  nodeColor: "#33AAAA",
+  top: 10
+}, {
+  iconClassName: "node-icon1",
+  id: "1234567",
+  label: "Hello",
+  left: 2000,
+  nodeColor: "#33AAAA",
+  top: 50
+}, {
+  iconClassName: "node-icon2",
+  id: "faraway",
+  label: "So Far!",
+  left: 2300,
+  nodeColor: "orange",
+  top: 200
+}, {
+  iconClassName: "node-icon2",
+  id: "faraway2",
+  label: "So Far II",
+  left: 2300,
+  nodeColor: "orange",
+  top: 433
+}, {
+  className: "node-selected",
+  height: 100,
+  iconClassName: "node-icon1",
+  id: "gary",
+  isSelected: true,
+  label: "Gary's Node!",
+  left: 301,
+  nodeColor: "green",
+  nodeShape: "SQUARE",
+  top: 200,
+  width: 100,
+  anchors: [{
+    id: "top",
+    location: {
+      leftPercent: 0.15,
+      topPercent: 0.55
+    }
+  }, {
+    id: "top2",
+    location: {
+      leftPercent: 1,
+      topPercent: 0.24
+    }
+  }]
+}, {
+  className: "node-selected",
+  iconClassName: "node-icon1",
+  id: "josh",
+  label: "Josh Node",
+  left: 544,
+  nodeColor: "orange",
+  nodeShape: "DIAMOND",
+  startElement: false,
+  top: 75,
+  anchors: [{
+    id: "bottom",
+    location: "BOTTOM"
+  }, {
+    id: "left",
+    location: "LEFT"
+  }, {
+    id: "right",
+    location: "TOP"
+  }]
+}]), _defineProperty(_INITIAL_STATE, "variables", {
+  "0": {
+    name: "test",
+    value: "test value"
   }
-};
+}), _INITIAL_STATE);
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
   var action = arguments[1];
 
   switch (action.type) {
-    case "ADD_NODE":
+    case _Actions.ADD_CONNECTOR:
+      return Object.assign({}, state, {
+        connectors: [].concat(_toConsumableArray(state.connectors), [action.connector])
+      });
+    case _Actions.ADD_NODE:
       return Object.assign({}, state, {
         nodes: [].concat(_toConsumableArray(state.nodes), [action.node])
       });
-    case "UPDATE_NODE":
+    case _Actions.UPDATE_NODE:
       var _action$payload = action.payload,
           node = _action$payload.node,
           x = _action$payload.x,
@@ -18617,11 +18637,7 @@ exports.default = function () {
           return node.id === id ? newNode : node;
         })
       });
-    case "ADD_CONNECTOR":
-      return Object.assign({}, state, {
-        connectors: [].concat(_toConsumableArray(state.connectors), [action.connector])
-      });
-    case "UPDATE_NODE_VALUES":
+    case _Actions.UPDATE_NODE_VALUES:
       var changeId = action.node.id;
       var updateNode = state.nodes.filter(function (node) {
         return node.id === changeId;
@@ -18641,6 +18657,25 @@ exports.default = function () {
       return state;
   }
 };
+
+/***/ }),
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ADD_NODE = exports.ADD_NODE = "ADD_NODE";
+var UPDATE_NODE = exports.UPDATE_NODE = "UPDATE_NODE";
+var ADD_CONNECTOR = exports.ADD_CONNECTOR = "ADD_CONNECTOR";
+var UPDATE_NODE_VALUES = exports.UPDATE_NODE_VALUES = "UPDATE_NODE_VALUES";
 
 /***/ })
 /******/ ]);

@@ -23,10 +23,10 @@ class FlowModal extends React.Component {
     const { id, label, variableName, variableValue } = this.state;
     const {
       modal,
-      modalTitle,
       modalBodyContainer,
       modalBodySurface,
-      modalFooter
+      modalFooter,
+      modalTitle
     } = Styles;
     return (
       <div className={modal}>
@@ -39,28 +39,28 @@ class FlowModal extends React.Component {
                 this.updateValue("label", value)
               }
             >
-              <input type="text" value={this.state.label} />
+              <input type="text" value={label} />
             </form>
             <br />
             <form>
               <label>
                 Variable Name:
                 <input
-                  type="text"
-                  value={this.state.variableName}
                   onChange={({ target: { value } }) =>
                     this.updateValue("variableName", value)
                   }
+                  type="text"
+                  value={variableName}
                 />
               </label>
               <label>
                 Variable Value:
                 <input
-                  type="text"
-                  value={this.state.variableValue}
                   onChange={({ target: { value } }) =>
                     this.updateValue("variableValue", value)
                   }
+                  type="text"
+                  value={variableValue}
                 />
               </label>
             </form>

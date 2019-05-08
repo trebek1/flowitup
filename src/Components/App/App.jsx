@@ -6,20 +6,20 @@ import canvasBuilder from "../../CanvasBuilder.js";
 let NODE_ID = 0;
 
 const createNode = nodeId => ({
-  id: nodeId,
-  label: "",
-  left: 0,
-  top: 0,
-  width: 64,
-  height: 64,
-  nodeShape: "SQUARE",
-  nodeColor: "orange",
   anchors: [
     { id: "top", location: "Top" },
     { id: "left", location: "Left" },
     { id: "right", location: "Right" },
     { id: "bottom", location: "Bottom" }
-  ]
+  ],
+  height: 64,
+  id: nodeId,
+  label: "",
+  left: 0,
+  nodeShape: "SQUARE",
+  nodeColor: "orange",
+  top: 0,
+  width: 64
 });
 
 export default class App extends React.Component {
@@ -53,7 +53,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    const { nodes, connectors, config, addNode } = this.props;
+    const { addNode, config, connectors, nodes } = this.props;
     this._canvasBuilder = canvasBuilder.default.createInstance(this.canvas);
     this._canvasBuilder.update(
       nodes,
@@ -64,10 +64,7 @@ export default class App extends React.Component {
     quip.apps.updateToolbar({
       menuCommands: [
         {
-          handler: () => {
-            const newNode = createNode(`Node-ID-"${++NODE_ID}`);
-            addNode(newNode);
-          },
+          handler: () => addNode(createNode(`Node-ID-"${++NODE_ID}`)),
           id: "addAssignment",
           label: "Add Assignment"
         }
@@ -86,7 +83,7 @@ export default class App extends React.Component {
   render() {
     const { nodeForModal } = this.state;
     const { canvas, root } = Styles;
-    const { nodes, connectors, config, variables } = this.props;
+    const { config, connectors, nodes, variables } = this.props;
     if (this._canvasBuilder) {
       this._canvasBuilder.update(
         nodes,
