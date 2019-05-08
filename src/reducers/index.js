@@ -16,7 +16,7 @@ const INITIAL_STATE = {
     dragRules: [],
     nodeEvents: {
       onDrop: (node, x, y, target) => {
-        store.dispatch({ type: UPDATE_NODE, payload: { x, y, node } });
+        store.dispatch({ type: UPDATE_NODE, payload: { node, x, y } });
       }
     },
     snapToGrid: [64, 64],
@@ -24,23 +24,22 @@ const INITIAL_STATE = {
     surfaceDragMode: "KEY_TOGGLE",
     surfacePanKeyToggle: "ANY"
   },
-  connectors: [
-  ],
+  connectors: [],
   nodes: [
     {
       iconClassName: "node-icon1",
       id: "0",
       label: "Start",
       left: 50,
-	  nodeColor: "#33AAAA",
-	  nodeShape: 'CIRCLE',
-	  top: 10,
-	  anchors: [
-		  { id: "left", location: "LEFT" },
-		  { id: "right", location: "RIGHT" },
-		  { id: "top", location: "TOP" },
-		  { id: "bottom", location: "BOTTOM" }
-	  ]
+      nodeColor: "#33AAAA",
+      nodeShape: "CIRCLE",
+      top: 10,
+      anchors: [
+        { id: "left", location: "LEFT" },
+        { id: "right", location: "RIGHT" },
+        { id: "top", location: "TOP" },
+        { id: "bottom", location: "BOTTOM" }
+      ]
     }
   ],
   variables: {
