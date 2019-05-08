@@ -21,7 +21,8 @@ const createNode = nodeId => ({
   nodeShape: "SQUARE",
   nodeColor: "orange",
   top: 0,
-  width: 64
+  width: 64,
+  className: "App__node-icon-assignment"
 });
 
 export default class App extends React.Component {

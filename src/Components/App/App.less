@@ -117,4 +117,41 @@
     fill: lightgreen;
     stroke: green;
   }
+
+  .slds-canvas-builder_node-label {
+	text-align: center;
+	font-weight: bold;
+  }
+
+  .node-icon-chevron:after {
+    content: '';
+    width: 30%;
+    height: 34%;
+    position: absolute;
+    display: block;
+    top: 33%;
+    left: 39%;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABmJLR0QA/wD/AP+gvaeTAAAC1UlEQVR4nO3SO1JdMRBFUV2bOTlx6IHhSTkxIYxLTnwKKB6P+5HUv71G0F1nt977n977j4aa+qvn3vsv63uwWP+IECq5EQAhVHInAEKoYEcAhJDZgQAIIaMTARBCJhcCIIQMBgRACJENDIAQIpoQACFEMjEAQohgQQCE4NnCAAjBI4MACMETwwCEEAxtvfdufcR/L621x23bnqwPqcRTAEIIC3kMQAhhAc8BCCFMFCEAIYQJIgUghDBQxACEEAaIHIAQwgUZAhBCOCFTAEIIB2QMQAhhh8wBCCHcUSEAIYQbKgUghPBGxQCEEFrtAKR0CATwqmQIBPBRqRAI4HMlQiCAr6UOgQD2SxkCARyXKgQCOC9FCARwXegQCGCckCEQwHihQiCAeUKEQADzuQ6BANZxGQIBrOcqBAKw4yIEArBnGgIB+GESAgH4szQEAvBrSQgE4N/UEAggjikhEEA8Q0MggLiGhEAA8V0KgQDyOBUCAeRzKAQCyGtXCASQ390QCKCOmyEQQD3vQiCAul5aa4/frK+Ame+ttYcH6yuw3FNr7fe2bc+ttUYAdbwbXgggv5vDCwHkdXd4IYB8dg0vBJDHoeGFAOI7NbwQQFyXhhcCiGfI8EIAcQwdXgjAvynDCwH4NXV4IQB/lgwvBODH0uGFAOyZDC8EYMd0eCGA9VwMLwSwjqvhhQDmczm8EMA8rocXAhgvxPBCAOOEGl4I4LqQwwsBnBd6eCGA41IMLwSwX6rhhQC+lnJ4IYDPpR5eCOCjEsMLAbwqNbwQQNHhpXIApYeXigEw/BuVAmD4GyoEwPB3ZA6A4XfIGADDH5ApAIY/IUMADH9B5AAYfoCIATD8QJECYPgJIgTA8BN5DoDhF/AYAMMv5CkAhjfgIQCGt9Tt/O29/7T+vzyGL47hi2P44hi+OIYvjuGLY/jiGL44hi+O4Ytj+OIYvjiGL47hi2P42v4BWk5Xn1I4yPsAAAAASUVORK5CYII=);
+	background-size: 100% 100%;
+  }
+
+  .node-icon-assignment {
+	&:after {
+		content: '';
+		width: 60%;
+		height: 60%;
+		position: absolute;
+		display: block;
+		top: 23%;
+		left: 20%;
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAg0lEQVRYhe3UMQqDUBCE4X9E0gXsbYUcJTeyCHgXW2/gjQQhRYoQUsjaJPCwsnnazAcLj21m4cGAmdnJ9H9ERAP0wC3dZ/ACHpKG7QEjcM8YnPoCtaRnkSyvB4UDXH5DekALzAeEL0AnaYLNX0dECVSZD/hIemfOsP3cA+4B94CZ2elWK0kpyYnJ7FEAAAAASUVORK5CYII=);
+		background-size: 100% 100%;
+	}
+
+	.slds-canvas-builder_node-label:after {
+		content: 'Assignment';
+		display: block;
+		font-weight: normal;
+	}
+  }
 }
