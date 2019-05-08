@@ -5,6 +5,25 @@ import canvasBuilder from "../../CanvasBuilder.js";
 
 let NODE_ID = 0;
 
+const createNode = (nodeId) => {
+  return {
+	id: nodeId,
+	label: "",
+	left: 0,
+	top: 0,
+	width: 64,
+	height: 64,
+	nodeShape: "SQUARE",
+	nodeColor: "orange",
+	anchors: [
+	  { id: "top", location: "Top" },
+	  { id: "left", location: "Left" },
+	  { id: "right", location: "Right" },
+	  { id: "bottom", location: "Bottom" }
+    ]
+  };
+};
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +37,10 @@ export default class App extends React.Component {
   }
 
   _addHandlersToConfig(config) {
-    config.nodeEvents.onClick = node => this.setState({ nodeForModal: node });
+	config.nodeEvents.onClick = node => this.setState({ nodeForModal: node });
+	config.connectorEvents.onConnectorAdd = (sourceNodeId, targetNodeId, sourceAnchorId, targetAnchorId) => {
+		this.props.addConnector({ sourceNodeId, targetNodeId, sourceAnchorId, targetAnchorId });
+	};
     return config;
   }
 
@@ -32,40 +54,14 @@ export default class App extends React.Component {
     );
 
     quip.apps.updateToolbar({
-      toolbarCommandIds: ["addVariable", "addConstant"],
+      toolbarCommandIds: ["addAssignment"],
       menuCommands: [
         {
-          id: "addVariable",
-          label: "Add Variable",
+          id: "addAssignment",
+          label: "Add Assignment",
           handler: () => {
-            const nodeId = "Node-ID-" + ++NODE_ID;
-            addNode({
-              id: nodeId,
-              lable: nodeId,
-              left: 0,
-              top: 0,
-              width: 64,
-              height: 64,
-              nodeShape: "CIRCLE",
-              nodeColor: "pink"
-            });
-          }
-        },
-        {
-          id: "addConstant",
-          label: "Add Constant",
-          handler: () => {
-            const nodeId = "Node-ID-" + ++NODE_ID;
-            addNode({
-              id: nodeId,
-              lable: nodeId,
-              left: 0,
-              top: 0,
-              width: 64,
-              height: 64,
-              nodeShape: "SQUARE",
-              nodeColor: "green"
-            });
+			const newNode = createNode("Node-ID-" + ++NODE_ID);
+            addNode(newNode);
           }
         }
       ]

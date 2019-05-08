@@ -11,6 +11,13 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       type: "ADD_NODE",
       node
     });
+  },
+
+  addConnector(connector) {
+	dispatch({
+	  type: "ADD_CONNECTOR",
+      connector
+	});
   }
 });
 
