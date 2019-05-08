@@ -133,6 +133,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         nodes: state.nodes.map(node => (node.id === id ? newNode : node))
+	  };
+	case "ADD_CONNECTOR":
+      return {
+        ...state,
+        connectors: [...state.connectors, action.connector]
       };
     default:
       return state;
