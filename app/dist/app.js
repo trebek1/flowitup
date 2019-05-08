@@ -17070,7 +17070,6 @@ var App = function (_React$Component) {
     value: function componentDidUpdate() {
       var _props = this.props,
           addNode = _props.addNode,
-          config = _props.config,
           connectors = _props.connectors,
           variables = _props.variables;
       var nodes = this.props.nodes;
@@ -17087,13 +17086,13 @@ var App = function (_React$Component) {
           id: "deploy",
           label: "Deploy Flow",
           handler: function handler() {
-            var map = {};
+            var map = connectors.reduce(function (acc, curr) {
+              acc[curr.sourceNodeId] = curr.targetNodeId;
+              return acc;
+            }, {});
             nodes = nodes.filter(function (node) {
               return node.id != "0";
             });
-            for (var i = 0; i < connectors.length; i++) {
-              map[connectors[i].sourceNodeId] = connectors[i].targetNodeId;
-            }
 
             var doc = document.implementation.createDocument("", "", null);
             var flow = doc.createElementNS("http://soap.sforce.com/2006/04/metadata", "Flow");
@@ -17273,11 +17272,9 @@ var App = function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _props2 = this.props,
-          addNode = _props2.addNode,
           config = _props2.config,
           connectors = _props2.connectors,
-          variables = _props2.variables;
-      var nodes = this.props.nodes;
+          nodes = _props2.nodes;
 
       this._canvasBuilder = _CanvasBuilder2.default.default.createInstance(this.canvas);
       this._canvasBuilder.update(nodes, connectors, this._addHandlersToConfig(config));
@@ -17302,7 +17299,7 @@ var App = function (_React$Component) {
         "div",
         { className: root, __source: {
             fileName: _jsxFileName,
-            lineNumber: 295
+            lineNumber: 294
           },
           __self: this
         },
@@ -17317,13 +17314,13 @@ var App = function (_React$Component) {
           handleModalSave: this.handleModalSave,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 297
+            lineNumber: 296
           },
           __self: this
         }) : null,
         _react2.default.createElement("div", { className: canvas, ref: this.canvas, __source: {
             fileName: _jsxFileName,
-            lineNumber: 310
+            lineNumber: 309
           },
           __self: this
         })

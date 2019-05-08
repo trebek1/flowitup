@@ -55,7 +55,7 @@ export default class App extends React.Component {
   }
 
   componentDidUpdate() {
-    const { addNode, config, connectors, variables } = this.props;
+    const { addNode, connectors, variables } = this.props;
     let { nodes } = this.props;
 
     quip.apps.updateToolbar({
@@ -69,11 +69,11 @@ export default class App extends React.Component {
           id: "deploy",
           label: "Deploy Flow",
           handler: () => {
-            var map = {};
+            const map = connectors.reduce((acc, curr) => {
+              acc[curr.sourceNodeId] = curr.targetNodeId;
+              return acc;
+            }, {});
             nodes = nodes.filter(node => node.id != "0");
-            for (var i = 0; i < connectors.length; i++) {
-              map[connectors[i].sourceNodeId] = connectors[i].targetNodeId;
-            }
 
             var doc = document.implementation.createDocument("", "", null);
             var flow = doc.createElementNS(
@@ -262,8 +262,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    const { addNode, config, connectors, variables } = this.props;
-    let { nodes } = this.props;
+    const { config, connectors, nodes } = this.props;
     this._canvasBuilder = canvasBuilder.default.createInstance(this.canvas);
     this._canvasBuilder.update(
       nodes,
