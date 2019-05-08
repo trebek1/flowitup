@@ -54,15 +54,9 @@ export default class App extends React.Component {
     return config;
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     const { addNode, config, connectors, variables } = this.props;
-    let {nodes} = this.props;
-    this._canvasBuilder = canvasBuilder.default.createInstance(this.canvas);
-    this._canvasBuilder.update(
-      nodes,
-      connectors,
-      this._addHandlersToConfig(config)
-    );
+    let { nodes } = this.props;
 
     quip.apps.updateToolbar({
       menuCommands: [
@@ -75,23 +69,11 @@ export default class App extends React.Component {
           id: "deploy",
           label: "Deploy Flow",
           handler: () => {
-            console.log(nodes);
-            /*var map = {};
-            console.log('nodes');
-            for (var i = 0; i < nodes.length; i++) {
-              console.log(nodes[i].id);
-              map[nodes[i].id] = {n:nodes[i], c:null};
-            }
-            console.log(map);*/
-            console.log("connectors");
             var map = {};
-            nodes = nodes.filter((node) => node.id != '0');
+            nodes = nodes.filter(node => node.id != "0");
             for (var i = 0; i < connectors.length; i++) {
-              console.log(connectors[i].sourceNodeId);
               map[connectors[i].sourceNodeId] = connectors[i].targetNodeId;
             }
-            console.log("later");
-            console.log(map);
 
             var doc = document.implementation.createDocument("", "", null);
             var flow = doc.createElementNS(
@@ -112,7 +94,6 @@ export default class App extends React.Component {
               var label = doc.createElement("label");
               label.innerHTML = node.label;
 
-              console.log(node.left);
               var locx = doc.createElement("locationX");
               locx.innerHTML = node.left.toString();
 
@@ -271,29 +252,24 @@ export default class App extends React.Component {
               saveAs(content, "example.zip");
             });
 
-            //create static stuff
-            /*var static = '<interviewLabel>flowhack {!$Flow.CurrentDateTime}</interviewLabel>\
-            <label>flowhack</label>\
-            <processMetadataValues>\
-            <name>BuilderType</name>\
-            <value>\
-            <stringValue>LightningFlowBuilder</stringValue>\
-            </value>\
-            </processMetadataValues>\
-            <processMetadataValues>\
-            <name>OriginBuilderType</name>\
-            <value>\
-            <stringValue>LightningFlowBuilder</stringValue>\
-            </value>\
-            </processMetadataValues>';*/
-
             var blob = new Blob(["done"], { type: "text/plain;charset=utf-8" });
             FileSaver.saveAs(blob, "done.txt");
           }
         }
       ],
-      toolbarCommandIds: ["addAssignment","deploy"]
+      toolbarCommandIds: ["addAssignment", "deploy"]
     });
+  }
+
+  componentDidMount() {
+    const { addNode, config, connectors, variables } = this.props;
+    let { nodes } = this.props;
+    this._canvasBuilder = canvasBuilder.default.createInstance(this.canvas);
+    this._canvasBuilder.update(
+      nodes,
+      connectors,
+      this._addHandlersToConfig(config)
+    );
   }
 
   handleModalClose = () => this.setState({ nodeForModal: null });
