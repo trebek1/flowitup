@@ -62,33 +62,38 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         nodes: [...state.nodes, action.node]
       };
-    case UPDATE_NODE:
+    case UPDATE_NODE: {
       const { node, x, y } = action.payload;
       const id = node.id;
-      let newNode = state.nodes.filter(node => node.id === id)[0];
+      const newNode = state.nodes.filter(
+        ({ id: currentId }) => currentId === id
+      )[0];
       newNode.left = x;
       newNode.top = y;
       return {
         ...state,
         nodes: state.nodes.map(node => (node.id === id ? newNode : node))
       };
+    }
+
     case UPDATE_NODE_VALUES: {
-      const changeId = action.node.id;
-      const updateNode = state.nodes.filter(node => node.id === changeId)[0];
-      updateNode.label = action.node.label;
+      const { id, label, variableName, variableValue } = action.node;
+      const { nodes, variables } = state;
+      const updateNode = state.nodes.filter(
+        ({ id: currentId }) => currentId === id
+      )[0];
+      updateNode.label = label;
       const variableObj = {
-        name: action.node.variableName,
-        value: action.node.variableValue
+        name: variableName,
+        value: variableValue
       };
       return {
         ...state,
         variables: {
-          ...state.variables,
-          [changeId]: variableObj
+          ...variables,
+          [id]: variableObj
         },
-        nodes: state.nodes.map(node =>
-          node.id === changeId ? updateNode : node
-        )
+        nodes: nodes.map(node => (node.id === id ? updateNode : node))
       };
     }
 
