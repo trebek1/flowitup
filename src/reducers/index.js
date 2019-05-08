@@ -28,7 +28,7 @@ const INITIAL_STATE = {
   ],
   nodes: [
     {
-      iconClassName: "node-icon1",
+      className: "App__node-icon-chevron",
       id: "0",
       label: "Start",
       left: 50,
