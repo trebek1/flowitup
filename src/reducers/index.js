@@ -72,7 +72,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         nodes: state.nodes.map(node => (node.id === id ? newNode : node))
       };
-    case UPDATE_NODE_VALUES:
+    case UPDATE_NODE_VALUES: {
       const changeId = action.node.id;
       const updateNode = state.nodes.filter(node => node.id === changeId)[0];
       updateNode.label = action.node.label;
@@ -90,6 +90,8 @@ export default (state = INITIAL_STATE, action) => {
           node.id === changeId ? updateNode : node
         )
       };
+    }
+
     default:
       return state;
   }

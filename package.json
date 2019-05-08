@@ -12,6 +12,7 @@
     "quip-apps-webpack-config": ">=0.0.39"
   },
   "dependencies": {
+    "jszip": "^3.2.1",
     "react-redux": "^4.0.3",
     "redux": "^3.0.1"
   }
