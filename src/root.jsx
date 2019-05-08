@@ -1,10 +1,8 @@
 import quip from "quip";
-import AppContainer from "./Containers/AppContainer.jsx";
-
 import { createStore } from "redux";
-import canvasData from "./reducers";
-
 import { Provider } from "react-redux";
+import AppContainer from "./Containers/AppContainer.jsx";
+import canvasData from "./reducers";
 
 export const store = createStore(canvasData);
 
