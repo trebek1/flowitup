@@ -9,12 +9,11 @@ import { Provider } from "react-redux";
 export const store = createStore(canvasData);
 
 quip.apps.initialize({
-  initializationCallback: function(rootNode) {
+  initializationCallback: rootNode =>
     ReactDOM.render(
       <Provider store={store}>
         <AppContainer />
       </Provider>,
       rootNode
-    );
-  }
+    )
 });

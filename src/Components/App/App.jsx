@@ -108,7 +108,7 @@ export default class App extends React.Component {
             handleModalSave={this.handleModalSave}
           />
         ) : null}
-        <div ref={this.canvas} className={canvas} />
+        <div className={canvas} ref={this.canvas} />
       </div>
     );
   }
