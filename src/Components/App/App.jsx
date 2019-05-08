@@ -1,7 +1,8 @@
-import React from "react";
+import FileSaver from "file-saver";
 import JSZip from "jszip";
-import Styles from "./App.less";
 import Modal from "../Modal/Modal.jsx";
+import React from "react";
+import Styles from "./App.less";
 import canvasBuilder from "../../CanvasBuilder.js";
 
 let NODE_ID = 0;
