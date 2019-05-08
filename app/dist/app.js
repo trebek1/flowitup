@@ -13255,15 +13255,15 @@ var App = function (_React$Component) {
       this._canvasBuilder.update(nodes, connectors, this._addHandlersToConfig(config));
 
       quip.apps.updateToolbar({
-        toolbarCommandIds: ["addAssignment"],
         menuCommands: [{
-          id: "addAssignment",
-          label: "Add Assignment",
           handler: function handler() {
-            var newNode = createNode("Node-ID-" + ++NODE_ID);
+            var newNode = createNode("Node-ID-\"" + ++NODE_ID);
             addNode(newNode);
-          }
-        }]
+          },
+          id: "addAssignment",
+          label: "Add Assignment"
+        }],
+        toolbarCommandIds: ["addAssignment"]
       });
     }
   }, {
@@ -13272,13 +13272,13 @@ var App = function (_React$Component) {
       var nodeForModal = this.state.nodeForModal;
       var canvas = _App2.default.canvas,
           root = _App2.default.root;
+      var _props2 = this.props,
+          nodes = _props2.nodes,
+          connectors = _props2.connectors,
+          config = _props2.config,
+          variables = _props2.variables;
 
       if (this._canvasBuilder) {
-        var _props2 = this.props,
-            nodes = _props2.nodes,
-            connectors = _props2.connectors,
-            config = _props2.config;
-
         this._canvasBuilder.update(nodes, connectors, this._addHandlersToConfig(config));
       }
 
@@ -13286,7 +13286,7 @@ var App = function (_React$Component) {
         "div",
         { className: root, __source: {
             fileName: _jsxFileName,
-            lineNumber: 101
+            lineNumber: 99
           },
           __self: this
         },
@@ -13294,14 +13294,14 @@ var App = function (_React$Component) {
           data: {
             id: nodeForModal.id,
             label: nodeForModal.label,
-            variableName: nodeForModal.variableName,
-            variableValue: nodeForModal.variableValue
+            variableName: variables[nodeForModal.id] && variables[nodeForModal.id].name,
+            variableValue: variables[nodeForModal.id] && variables[nodeForModal.id].value
           },
           handleModalClose: this.handleModalClose,
           handleModalSave: this.handleModalSave,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 103
+            lineNumber: 101
           },
           __self: this
         }) : null,
@@ -13344,6 +13344,8 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -13374,11 +13376,9 @@ var FlowModal = function (_React$Component) {
   }
 
   _createClass(FlowModal, [{
-    key: "updateName",
-    value: function updateName(label) {
-      this.setState({
-        label: label
-      });
+    key: "updateValue",
+    value: function updateValue(key, value) {
+      this.setState(_defineProperty({}, key, value));
     }
   }, {
     key: "render",
@@ -13446,9 +13446,12 @@ var FlowModal = function (_React$Component) {
             ),
             _react2.default.createElement(
               "form",
-              { onChange: function onChange(e) {
-                  return _this2.updateName(e.target.value);
-                }, __source: {
+              {
+                onChange: function onChange(_ref2) {
+                  var value = _ref2.target.value;
+                  return _this2.updateValue("label", value);
+                },
+                __source: {
                   fileName: _jsxFileName,
                   lineNumber: 37
                 },
@@ -13456,10 +13459,75 @@ var FlowModal = function (_React$Component) {
               },
               _react2.default.createElement("input", { type: "text", value: this.state.label, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 38
+                  lineNumber: 42
                 },
                 __self: this
               })
+            ),
+            _react2.default.createElement("br", {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 44
+              },
+              __self: this
+            }),
+            _react2.default.createElement(
+              "form",
+              {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 45
+                },
+                __self: this
+              },
+              _react2.default.createElement(
+                "label",
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 46
+                  },
+                  __self: this
+                },
+                "Variable Name:",
+                _react2.default.createElement("input", {
+                  type: "text",
+                  value: this.state.variableName,
+                  onChange: function onChange(_ref3) {
+                    var value = _ref3.target.value;
+                    return _this2.updateValue("variableName", value);
+                  },
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 48
+                  },
+                  __self: this
+                })
+              ),
+              _react2.default.createElement(
+                "label",
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 56
+                  },
+                  __self: this
+                },
+                "Variable Value:",
+                _react2.default.createElement("input", {
+                  type: "text",
+                  value: this.state.variableValue,
+                  onChange: function onChange(_ref4) {
+                    var value = _ref4.target.value;
+                    return _this2.updateValue("variableValue", value);
+                  },
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 58
+                  },
+                  __self: this
+                })
+              )
             )
           )
         ),
@@ -13467,7 +13535,7 @@ var FlowModal = function (_React$Component) {
           "div",
           { className: modalFooter, __source: {
               fileName: _jsxFileName,
-              lineNumber: 42
+              lineNumber: 69
             },
             __self: this
           },
@@ -13475,7 +13543,7 @@ var FlowModal = function (_React$Component) {
             "button",
             { onClick: handleModalClose, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 43
+                lineNumber: 70
               },
               __self: this
             },
@@ -13494,7 +13562,7 @@ var FlowModal = function (_React$Component) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 44
+                lineNumber: 71
               },
               __self: this
             },
@@ -18405,62 +18473,57 @@ Object.defineProperty(exports, "__esModule", {
 
 var _root = __webpack_require__(134);
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var INITIAL_STATE = {
+  variables: {
+    "0": {
+      name: "test",
+      value: "test value"
+    }
+  },
   nodes: [{
+    iconClassName: "node-icon1",
     id: "0",
     label: "Start",
     left: 50,
-    top: 10,
-    iconClassName: "node-icon1",
     nodeColor: "#33AAAA",
-    variableName: "",
-    variableValue: "",
-    startElement: true
+    top: 10
   }, {
+    iconClassName: "node-icon1",
     id: "1234567",
     label: "Hello",
     left: 2000,
-    top: 50,
-    iconClassName: "node-icon1",
     nodeColor: "#33AAAA",
-    variableName: "",
-    variableValue: "",
-    startElement: false
+    top: 50
   }, {
+    iconClassName: "node-icon2",
     id: "faraway",
     label: "So Far!",
     left: 2300,
-    top: 200,
-    iconClassName: "node-icon2",
     nodeColor: "orange",
-    variableName: "",
-    variableValue: "",
-    startElement: false
+    top: 200
   }, {
+    iconClassName: "node-icon2",
     id: "faraway2",
     label: "So Far II",
     left: 2300,
-    top: 433,
-    iconClassName: "node-icon2",
     nodeColor: "orange",
-    variableName: "",
-    variableValue: "",
-    startElement: false
+    top: 433
   }, {
-    id: "gary",
-    label: "Gary's Node!",
     className: "node-selected",
-    isSelected: true,
-    width: 100,
-    top: 200,
-    left: 301,
     height: 100,
+    iconClassName: "node-icon1",
+    id: "gary",
+    isSelected: true,
+    label: "Gary's Node!",
+    left: 301,
     nodeColor: "green",
     nodeShape: "SQUARE",
-    startElement: false,
-    iconClassName: "node-icon1",
+    top: 200,
+    width: 100,
     anchors: [{
       id: "top",
       location: {
@@ -18473,20 +18536,17 @@ var INITIAL_STATE = {
         leftPercent: 1,
         topPercent: 0.24
       }
-    }],
-    variableName: "",
-    variableValue: ""
+    }]
   }, {
+    className: "node-selected",
+    iconClassName: "node-icon1",
     id: "josh",
     label: "Josh Node",
     left: 544,
-    top: 75,
-    nodeShape: "DIAMOND",
-    iconClassName: "node-icon1",
     nodeColor: "orange",
-    className: "node-selected",
+    nodeShape: "DIAMOND",
     startElement: false,
-    endElement: false,
+    top: 75,
     anchors: [{
       id: "bottom",
       location: "BOTTOM"
@@ -18496,9 +18556,7 @@ var INITIAL_STATE = {
     }, {
       id: "right",
       location: "TOP"
-    }],
-    variableName: "",
-    variableValue: ""
+    }]
   }],
   connectors: [{
     sourceNodeId: "gary",
@@ -18516,20 +18574,20 @@ var INITIAL_STATE = {
   }],
   config: {
     classPrefix: "App__slds-canvas-builder",
-    snapToGrid: [64, 64],
-    surfaceDragMode: "KEY_TOGGLE",
-    surfacePanKeyToggle: "ANY",
-    surfaceBrushKeyToggle: ["CTRL", "SHIFT"],
+    connectorEvents: {},
+    connectorHoverStrokeWidth: 4,
+    connectorStrokeWidth: 2,
     dragMode: "INSTANCE",
     dragRules: [],
-    connectorStrokeWidth: 2,
-    connectorHoverStrokeWidth: 4,
     nodeEvents: {
       onDrop: function onDrop(node, x, y, target) {
         _root.store.dispatch({ type: "UPDATE_NODE", payload: { x: x, y: y, node: node } });
       }
     },
-    connectorEvents: {}
+    snapToGrid: [64, 64],
+    surfaceBrushKeyToggle: ["CTRL", "SHIFT"],
+    surfaceDragMode: "KEY_TOGGLE",
+    surfacePanKeyToggle: "ANY"
   }
 };
 
@@ -18569,12 +18627,16 @@ exports.default = function () {
         return node.id === changeId;
       })[0];
       updateNode.label = action.node.label;
+      var variableObj = {
+        name: action.node.variableName,
+        value: action.node.variableValue
+      };
       return Object.assign({}, state, {
+        variables: Object.assign({}, state.variables, _defineProperty({}, changeId, variableObj)),
         nodes: state.nodes.map(function (node) {
           return node.id === changeId ? updateNode : node;
         })
       });
-      return state;
     default:
       return state;
   }

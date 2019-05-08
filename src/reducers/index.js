@@ -1,64 +1,57 @@
 import { store } from "../root.jsx";
 
 const INITIAL_STATE = {
+  variables: {
+    "0": {
+      name: "test",
+      value: "test value"
+    }
+  },
   nodes: [
     {
+      iconClassName: "node-icon1",
       id: "0",
       label: "Start",
       left: 50,
-      top: 10,
-      iconClassName: "node-icon1",
       nodeColor: "#33AAAA",
-      variableName: "",
-      variableValue: "",
-      startElement: true
+      top: 10
     },
     {
+      iconClassName: "node-icon1",
       id: "1234567",
       label: "Hello",
       left: 2000,
-      top: 50,
-      iconClassName: "node-icon1",
       nodeColor: "#33AAAA",
-      variableName: "",
-      variableValue: "",
-      startElement: false
+      top: 50
     },
     {
+      iconClassName: "node-icon2",
       id: "faraway",
       label: "So Far!",
       left: 2300,
-      top: 200,
-      iconClassName: "node-icon2",
       nodeColor: "orange",
-      variableName: "",
-      variableValue: "",
-      startElement: false
+      top: 200
     },
     {
+      iconClassName: "node-icon2",
       id: "faraway2",
       label: "So Far II",
       left: 2300,
-      top: 433,
-      iconClassName: "node-icon2",
       nodeColor: "orange",
-      variableName: "",
-      variableValue: "",
-      startElement: false
+      top: 433
     },
     {
-      id: "gary",
-      label: "Gary's Node!",
       className: "node-selected",
-      isSelected: true,
-      width: 100,
-      top: 200,
-      left: 301,
       height: 100,
+      iconClassName: "node-icon1",
+      id: "gary",
+      isSelected: true,
+      label: "Gary's Node!",
+      left: 301,
       nodeColor: "green",
       nodeShape: "SQUARE",
-      startElement: false,
-      iconClassName: "node-icon1",
+      top: 200,
+      width: 100,
       anchors: [
         {
           id: "top",
@@ -74,21 +67,18 @@ const INITIAL_STATE = {
             topPercent: 0.24
           }
         }
-      ],
-      variableName: "",
-      variableValue: ""
+      ]
     },
     {
+      className: "node-selected",
+      iconClassName: "node-icon1",
       id: "josh",
       label: "Josh Node",
       left: 544,
-      top: 75,
-      nodeShape: "DIAMOND",
-      iconClassName: "node-icon1",
       nodeColor: "orange",
-      className: "node-selected",
+      nodeShape: "DIAMOND",
       startElement: false,
-      endElement: false,
+      top: 75,
       anchors: [
         {
           id: "bottom",
@@ -102,9 +92,7 @@ const INITIAL_STATE = {
           id: "right",
           location: "TOP"
         }
-      ],
-      variableName: "",
-      variableValue: ""
+      ]
     }
   ],
   connectors: [
@@ -127,20 +115,20 @@ const INITIAL_STATE = {
   ],
   config: {
     classPrefix: "App__slds-canvas-builder",
-    snapToGrid: [64, 64],
-    surfaceDragMode: "KEY_TOGGLE",
-    surfacePanKeyToggle: "ANY",
-    surfaceBrushKeyToggle: ["CTRL", "SHIFT"],
+    connectorEvents: {},
+    connectorHoverStrokeWidth: 4,
+    connectorStrokeWidth: 2,
     dragMode: "INSTANCE",
     dragRules: [],
-    connectorStrokeWidth: 2,
-    connectorHoverStrokeWidth: 4,
     nodeEvents: {
       onDrop: (node, x, y, target) => {
         store.dispatch({ type: "UPDATE_NODE", payload: { x, y, node } });
       }
     },
-    connectorEvents: {}
+    snapToGrid: [64, 64],
+    surfaceBrushKeyToggle: ["CTRL", "SHIFT"],
+    surfaceDragMode: "KEY_TOGGLE",
+    surfacePanKeyToggle: "ANY"
   }
 };
 
@@ -170,13 +158,20 @@ export default (state = INITIAL_STATE, action) => {
       const changeId = action.node.id;
       const updateNode = state.nodes.filter(node => node.id === changeId)[0];
       updateNode.label = action.node.label;
+      const variableObj = {
+        name: action.node.variableName,
+        value: action.node.variableValue
+      };
       return {
         ...state,
+        variables: {
+          ...state.variables,
+          [changeId]: variableObj
+        },
         nodes: state.nodes.map(node =>
           node.id === changeId ? updateNode : node
         )
       };
-      return state;
     default:
       return state;
   }

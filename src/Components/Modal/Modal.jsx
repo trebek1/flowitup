@@ -12,9 +12,9 @@ class FlowModal extends React.Component {
     };
   }
 
-  updateName(label) {
+  updateValue(key, value) {
     this.setState({
-      label
+      [key]: value
     });
   }
 
@@ -34,8 +34,35 @@ class FlowModal extends React.Component {
         <div className={modalBodyContainer}>
           <div className={modalBodySurface}>
             <div>Node Name</div>
-            <form onChange={e => this.updateName(e.target.value)}>
+            <form
+              onChange={({ target: { value } }) =>
+                this.updateValue("label", value)
+              }
+            >
               <input type="text" value={this.state.label} />
+            </form>
+            <br />
+            <form>
+              <label>
+                Variable Name:
+                <input
+                  type="text"
+                  value={this.state.variableName}
+                  onChange={({ target: { value } }) =>
+                    this.updateValue("variableName", value)
+                  }
+                />
+              </label>
+              <label>
+                Variable Value:
+                <input
+                  type="text"
+                  value={this.state.variableValue}
+                  onChange={({ target: { value } }) =>
+                    this.updateValue("variableValue", value)
+                  }
+                />
+              </label>
             </form>
           </div>
         </div>

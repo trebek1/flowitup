@@ -5,24 +5,22 @@ import canvasBuilder from "../../CanvasBuilder.js";
 
 let NODE_ID = 0;
 
-const createNode = nodeId => {
-  return {
-    id: nodeId,
-    label: "",
-    left: 0,
-    top: 0,
-    width: 64,
-    height: 64,
-    nodeShape: "SQUARE",
-    nodeColor: "orange",
-    anchors: [
-      { id: "top", location: "Top" },
-      { id: "left", location: "Left" },
-      { id: "right", location: "Right" },
-      { id: "bottom", location: "Bottom" }
-    ]
-  };
-};
+const createNode = nodeId => ({
+  id: nodeId,
+  label: "",
+  left: 0,
+  top: 0,
+  width: 64,
+  height: 64,
+  nodeShape: "SQUARE",
+  nodeColor: "orange",
+  anchors: [
+    { id: "top", location: "Top" },
+    { id: "left", location: "Left" },
+    { id: "right", location: "Right" },
+    { id: "bottom", location: "Bottom" }
+  ]
+});
 
 export default class App extends React.Component {
   constructor(props) {
@@ -64,17 +62,17 @@ export default class App extends React.Component {
     );
 
     quip.apps.updateToolbar({
-      toolbarCommandIds: ["addAssignment"],
       menuCommands: [
         {
-          id: "addAssignment",
-          label: "Add Assignment",
           handler: () => {
-            const newNode = createNode("Node-ID-" + ++NODE_ID);
+            const newNode = createNode(`Node-ID-"${++NODE_ID}`);
             addNode(newNode);
-          }
+          },
+          id: "addAssignment",
+          label: "Add Assignment"
         }
-      ]
+      ],
+      toolbarCommandIds: ["addAssignment"]
     });
   }
 
@@ -88,8 +86,8 @@ export default class App extends React.Component {
   render() {
     const { nodeForModal } = this.state;
     const { canvas, root } = Styles;
+    const { nodes, connectors, config, variables } = this.props;
     if (this._canvasBuilder) {
-      const { nodes, connectors, config } = this.props;
       this._canvasBuilder.update(
         nodes,
         connectors,
@@ -104,8 +102,10 @@ export default class App extends React.Component {
             data={{
               id: nodeForModal.id,
               label: nodeForModal.label,
-              variableName: nodeForModal.variableName,
-              variableValue: nodeForModal.variableValue
+              variableName:
+                variables[nodeForModal.id] && variables[nodeForModal.id].name,
+              variableValue:
+                variables[nodeForModal.id] && variables[nodeForModal.id].value
             }}
             handleModalClose={this.handleModalClose}
             handleModalSave={this.handleModalSave}
